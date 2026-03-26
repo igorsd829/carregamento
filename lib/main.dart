@@ -66,7 +66,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-///////////////////////////////////////////////////////////////////////////
-/// agora é só fazer a tela de baixar o aqeuivo em pdf e está ok
