@@ -13,14 +13,15 @@ class ContainerAnimatedCustomOffline extends StatefulWidget {
   final double cardWidth;
   final double cardHeight;
   final int index;
-  const ContainerAnimatedCustomOffline(
-      {required this.index,
-      required this.isAdm,
-      required this.load,
-      required this.user,
-      required this.cardHeight,
-      required this.cardWidth,
-      super.key});
+  const ContainerAnimatedCustomOffline({
+    required this.index,
+    required this.isAdm,
+    required this.load,
+    required this.user,
+    required this.cardHeight,
+    required this.cardWidth,
+    super.key,
+  });
 
   @override
   State<ContainerAnimatedCustomOffline> createState() =>
@@ -122,18 +123,20 @@ class _ContainerAnimatedCustomOfflineState
       duration: const Duration(milliseconds: 300),
       child: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
+          gradient: LinearGradient(
+            colors: [
               statusCard,
               statusCard,
               statusCard,
-              Colors.grey.withOpacity(0.6)
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-            borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 0,
-            vertical: 0,
+              Colors.grey.withOpacity(0.6),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -144,27 +147,35 @@ class _ContainerAnimatedCustomOfflineState
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      const SizedBox(width: 10),
                       Container(
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black.withOpacity(0.7), width: 1),
-                            color: Colors.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5))),
+                          border: Border.all(
+                            color: Colors.black.withOpacity(0.7),
+                            width: 1,
+                          ),
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: Column(
                             children: [
                               widget.index < 9
-                                  ? Text('0${widget.index + 1}º',
-                                      style:
-                                          TextStyle(fontSize: textScale * 20))
-                                  : Text('${widget.index + 1}º',
-                                      style:
-                                          TextStyle(fontSize: textScale * 20)),
+                                  ? Text(
+                                      '0${widget.index + 1}º',
+                                      style: TextStyle(
+                                        fontSize: textScale * 20,
+                                      ),
+                                    )
+                                  : Text(
+                                      '${widget.index + 1}º',
+                                      style: TextStyle(
+                                        fontSize: textScale * 20,
+                                      ),
+                                    ),
                               ////////////////////////////////////
                               // Container(
                               //   color: colorTruck,
@@ -176,14 +187,13 @@ class _ContainerAnimatedCustomOfflineState
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
+                      const SizedBox(width: 5),
                       // Expanded(child: SizedBox()),
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                         child: InkWell(
                           onDoubleTap: () {
                             if (!open) {
@@ -204,16 +214,19 @@ class _ContainerAnimatedCustomOfflineState
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.black.withOpacity(0.7),
-                                          width: 1),
-                                      color: Colors.white,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5))),
+                                    border: Border.all(
+                                      color: Colors.black.withOpacity(0.7),
+                                      width: 1,
+                                    ),
+                                    color: Colors.white,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                  ),
                                   child: Text(
-                                      '${widget.user.plate.substring(0, 3).toUpperCase()}-${widget.user.plate.substring(3, 7).toUpperCase()}',
-                                      style:
-                                          TextStyle(fontSize: textScale * 15)),
+                                    '${widget.user.plate.substring(0, 3).toUpperCase()}-${widget.user.plate.substring(3, 7).toUpperCase()}',
+                                    style: TextStyle(fontSize: textScale * 15),
+                                  ),
                                 ),
                               ],
                             ),
@@ -223,13 +236,13 @@ class _ContainerAnimatedCustomOfflineState
                       showColorTruck
                           ? Row(
                               children: [
-                                const SizedBox(
-                                  width: 5,
-                                ),
+                                const SizedBox(width: 5),
                                 Container(
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: colorBorderCardTruck, width: 1),
+                                      color: colorBorderCardTruck,
+                                      width: 1,
+                                    ),
                                     borderRadius: BorderRadius.circular(4),
                                     color: colorTruck,
                                   ),
@@ -238,9 +251,7 @@ class _ContainerAnimatedCustomOfflineState
                                 ),
                               ],
                             )
-                          : const SizedBox(
-                              width: 0,
-                            ),
+                          : const SizedBox(width: 0),
                       widget.isAdm
                           ? Row(
                               children: [
@@ -248,32 +259,36 @@ class _ContainerAnimatedCustomOfflineState
                                     ? GestureDetector(
                                         child: widget.load
                                             ? IconButton(
-                                                padding:
-                                                    const EdgeInsets.all(0),
+                                                padding: const EdgeInsets.all(
+                                                  0,
+                                                ),
                                                 icon: Icon(
                                                   Icons.refresh,
                                                   size: textScale * 14,
                                                 ),
-                                                onPressed: () {})
+                                                onPressed: () {},
+                                              )
                                             : IconButton(
-                                                padding:
-                                                    const EdgeInsets.all(0),
+                                                padding: const EdgeInsets.all(
+                                                  0,
+                                                ),
                                                 icon: Icon(
                                                   Icons.upload,
                                                   size: textScale * 14,
                                                 ),
-                                                onPressed: () {}),
+                                                onPressed: () {},
+                                              ),
                                         onDoubleTap: () {
                                           if (widget.load) {
                                             return;
                                           } else {
-                                            users.addTruckListLoading2(
-                                                widget.user);
+                                            users.addTruckListLoading(
+                                              widget.user,
+                                            );
                                           }
                                         },
                                       )
                                     ///////////////////////////////////////
-
                                     // Material(
                                     //     shadowColor: Colors.black,
                                     //     color: Colors.transparent,
@@ -294,7 +309,6 @@ class _ContainerAnimatedCustomOfflineState
                                     //           onPressed: () {}),
                                     //     ))
                                     /////////////////////////////////////
-
                                     //  Icon(
                                     //   Icons.upload,
                                     //   size: textScale * 22,
@@ -315,33 +329,40 @@ class _ContainerAnimatedCustomOfflineState
                                     : GestureDetector(
                                         child: widget.load
                                             ? IconButton(
-                                                padding:
-                                                    const EdgeInsets.all(0),
+                                                padding: const EdgeInsets.all(
+                                                  0,
+                                                ),
                                                 icon: Icon(
                                                   Icons.refresh,
                                                   size: textScale * 14,
                                                 ),
-                                                onPressed: () {})
+                                                onPressed: () {},
+                                              )
                                             : IconButton(
-                                                padding:
-                                                    const EdgeInsets.all(0),
+                                                padding: const EdgeInsets.all(
+                                                  0,
+                                                ),
                                                 icon: Icon(
                                                   Icons.check,
                                                   size: textScale * 14,
                                                 ),
-                                                onPressed: () {}),
+                                                onPressed: () {},
+                                              ),
                                         onDoubleTap: () {
                                           if (widget.load) {
                                             return;
                                           } else {
-                                            users.isAutorized(widget.user,
-                                                sending, widget.user.loading);
+                                            users.isAutorized(
+                                              widget.user,
+                                              sending,
+                                              widget.user.loading,
+                                            );
                                             // setState(() {
                                             //   sending = !sending;
                                             // });
                                           }
                                         },
-                                      )
+                                      ),
 
                                 // IconButton(
                                 //     icon: Icon(
@@ -354,7 +375,7 @@ class _ContainerAnimatedCustomOfflineState
                                 //     })
                               ],
                             )
-                          : const SizedBox()
+                          : const SizedBox(),
                     ],
                   ),
                 ),
@@ -367,12 +388,15 @@ class _ContainerAnimatedCustomOfflineState
                             height: widget.cardWidth * 0.3,
                             width: widget.cardWidth - 20,
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.black.withOpacity(0.7),
-                                    width: 1),
-                                color: Colors.white,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5))),
+                              border: Border.all(
+                                color: Colors.black.withOpacity(0.7),
+                                width: 1,
+                              ),
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(5),
+                              ),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SingleChildScrollView(
@@ -385,53 +409,52 @@ class _ContainerAnimatedCustomOfflineState
                                     Text(
                                       'MOTORISTA: ${widget.user.name.toUpperCase()}',
                                       style: TextStyle(
-                                          fontSize: textScale * 10,
-                                          color: Colors.black87),
+                                        fontSize: textScale * 10,
+                                        color: Colors.black87,
+                                      ),
                                     ),
                                     widget.user.obs != ''
                                         ? Text(
                                             'OBSERVAÇÃO: ${widget.user.obs.toUpperCase()}',
                                             style: TextStyle(
-                                                fontSize: textScale * 10,
-                                                color: Colors.black87),
+                                              fontSize: textScale * 10,
+                                              color: Colors.black87,
+                                            ),
                                           )
                                         : const SizedBox(),
                                     widget.isAdm
                                         ? Text(
                                             'CLIENTE: ${widget.user.client.toUpperCase()}',
                                             style: TextStyle(
-                                                fontSize: textScale * 10,
-                                                color: Colors.black87),
+                                              fontSize: textScale * 10,
+                                              color: Colors.black87,
+                                            ),
                                           )
                                         : const SizedBox(),
 
                                     Text(
                                       // ignore: unnecessary_null_comparison
-                                      'CHEGADA: ${DateFormat('dd/MM/y, HH:mm').format(
-                                              widget.user.date,
-                                            )}',
+                                      'CHEGADA: ${DateFormat('dd/MM/y, HH:mm').format(widget.user.date)}',
                                       style: TextStyle(
-                                          fontSize: textScale * 10,
-                                          color: Colors.black87),
+                                        fontSize: textScale * 10,
+                                        color: Colors.black87,
+                                      ),
                                     ),
                                     Text(
                                       // ignore: unnecessary_null_comparison
                                       widget.user.enterTime == null
                                           ? ''
-                                          : 'ENTRADA: ${DateFormat('dd/MM/y, HH:mm').format(
-                                              widget.user.enterTime!,
-                                            )}',
+                                          : 'ENTRADA: ${DateFormat('dd/MM/y, HH:mm').format(widget.user.enterTime!)}',
                                       style: TextStyle(
-                                          fontSize: textScale * 10,
-                                          color: Colors.black87),
+                                        fontSize: textScale * 10,
+                                        color: Colors.black87,
+                                      ),
                                     ),
                                     Text(
                                       // ignore: unnecessary_null_comparison
                                       widget.user.outTime == null
                                           ? ''
-                                          : 'SAÍDA: ${DateFormat('dd/MM/y, HH:mm').format(
-                                              widget.user.outTime!,
-                                            )}',
+                                          : 'SAÍDA: ${DateFormat('dd/MM/y, HH:mm').format(widget.user.outTime!)}',
                                       style: TextStyle(
                                         fontSize: textScale * 10,
                                         color: Colors.black87,
@@ -448,31 +471,37 @@ class _ContainerAnimatedCustomOfflineState
                                                     children: [
                                                       GestureDetector(
                                                         child: IconButton(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(0),
-                                                            icon: Icon(
-                                                              Icons.refresh,
-                                                              size: textScale *
-                                                                  14,
-                                                            ),
-                                                            onPressed: () {}),
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                0,
+                                                              ),
+                                                          icon: Icon(
+                                                            Icons.refresh,
+                                                            size:
+                                                                textScale * 14,
+                                                          ),
+                                                          onPressed: () {},
+                                                        ),
                                                         onDoubleTap: () {
-                                                          widget.user
+                                                          widget
+                                                                  .user
                                                                   .autorized =
                                                               false;
                                                           widget.user.notFound =
                                                               false;
-                                                          widget.user
+                                                          widget
+                                                                  .user
                                                                   .autorized =
                                                               false;
                                                           widget.user.loading =
                                                               false;
 
                                                           statusCard = Colors
-                                                              .grey.shade300;
+                                                              .grey
+                                                              .shade300;
                                                           users.noProblem(
-                                                              widget.user);
+                                                            widget.user,
+                                                          );
                                                         },
                                                       ),
                                                       // IconButton(
@@ -501,39 +530,47 @@ class _ContainerAnimatedCustomOfflineState
                                                       //     )),
                                                       GestureDetector(
                                                         child: IconButton(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(0),
-                                                            icon: Icon(
-                                                              Icons.close,
-                                                              size: textScale *
-                                                                  14,
-                                                            ),
-                                                            onPressed: () {}),
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                0,
+                                                              ),
+                                                          icon: Icon(
+                                                            Icons.close,
+                                                            size:
+                                                                textScale * 14,
+                                                          ),
+                                                          onPressed: () {},
+                                                        ),
                                                         onDoubleTap: () {
                                                           widget.user.notFound =
-                                                              !widget.user
+                                                              !widget
+                                                                  .user
                                                                   .notFound;
-                                                          widget.user
+                                                          widget
+                                                                  .user
                                                                   .autorized =
-                                                              !widget.user
+                                                              !widget
+                                                                  .user
                                                                   .autorized;
                                                           users.isNotFound(
-                                                              widget.user);
+                                                            widget.user,
+                                                          );
                                                         },
                                                       ),
 
                                                       GestureDetector(
                                                         child: IconButton(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(0),
-                                                            icon: Icon(
-                                                              Icons.edit,
-                                                              size: textScale *
-                                                                  14,
-                                                            ),
-                                                            onPressed: () {}),
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                0,
+                                                              ),
+                                                          icon: Icon(
+                                                            Icons.edit,
+                                                            size:
+                                                                textScale * 14,
+                                                          ),
+                                                          onPressed: () {},
+                                                        ),
                                                         onDoubleTap: () {
                                                           Navigator.of(
                                                             context,
@@ -548,80 +585,90 @@ class _ContainerAnimatedCustomOfflineState
 
                                                       GestureDetector(
                                                         child: IconButton(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(0),
-                                                            icon: Icon(
-                                                              Icons.delete,
-                                                              size: textScale *
-                                                                  14,
-                                                            ),
-                                                            onPressed: () {}),
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                0,
+                                                              ),
+                                                          icon: Icon(
+                                                            Icons.delete,
+                                                            size:
+                                                                textScale * 14,
+                                                          ),
+                                                          onPressed: () {},
+                                                        ),
                                                         onDoubleTap: () {
                                                           showDialog(
                                                             context: context,
                                                             builder: (context) {
                                                               return AlertDialog(
                                                                 shape: RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            2)),
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                        2,
+                                                                      ),
+                                                                ),
                                                                 title: const Text(
-                                                                    'Remover esse caminhão?'),
+                                                                  'Remover esse caminhão?',
+                                                                ),
                                                                 content:
                                                                     const Text(
-                                                                        ''),
+                                                                      '',
+                                                                    ),
                                                                 actions: [
                                                                   ElevatedButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        Navigator.of(context)
-                                                                            .pop();
-                                                                      },
-                                                                      style: ElevatedButton.styleFrom(
-                                                                          foregroundColor: Colors
+                                                                    onPressed: () {
+                                                                      Navigator.of(
+                                                                        context,
+                                                                      ).pop();
+                                                                    },
+                                                                    style: ElevatedButton.styleFrom(
+                                                                      foregroundColor:
+                                                                          Colors
                                                                               .black54,
-                                                                          shape:
-                                                                              const RoundedRectangleBorder(),
-                                                                          backgroundColor: Colors
-                                                                              .grey
-                                                                              .shade200),
-                                                                      child:
-                                                                          Text(
-                                                                        'NÂO',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              textScale * 12,
-                                                                        ),
-                                                                      )),
+                                                                      shape:
+                                                                          const RoundedRectangleBorder(),
+                                                                      backgroundColor: Colors
+                                                                          .grey
+                                                                          .shade200,
+                                                                    ),
+                                                                    child: Text(
+                                                                      'NÂO',
+                                                                      style: TextStyle(
+                                                                        fontSize:
+                                                                            textScale *
+                                                                            12,
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                   ElevatedButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        users.removeTruckList(
-                                                                            widget.user);
-                                                                        Navigator
-                                                                            .of(
-                                                                          context,
-                                                                        ).pop();
-                                                                      },
-                                                                      style: ElevatedButton.styleFrom(
-                                                                          foregroundColor: Colors
+                                                                    onPressed: () {
+                                                                      users.removeTruckList(
+                                                                        widget
+                                                                            .user,
+                                                                      );
+                                                                      Navigator.of(
+                                                                        context,
+                                                                      ).pop();
+                                                                    },
+                                                                    style: ElevatedButton.styleFrom(
+                                                                      foregroundColor:
+                                                                          Colors
                                                                               .black54,
-                                                                          shape:
-                                                                              const RoundedRectangleBorder(),
-                                                                          backgroundColor: Colors
-                                                                              .grey
-                                                                              .shade200),
-                                                                      child:
-                                                                          Text(
-                                                                        'SIM',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              textScale * 12,
-                                                                        ),
-                                                                      )),
+                                                                      shape:
+                                                                          const RoundedRectangleBorder(),
+                                                                      backgroundColor: Colors
+                                                                          .grey
+                                                                          .shade200,
+                                                                    ),
+                                                                    child: Text(
+                                                                      'SIM',
+                                                                      style: TextStyle(
+                                                                        fontSize:
+                                                                            textScale *
+                                                                            12,
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 ],
                                                               );
                                                             },
@@ -630,7 +677,8 @@ class _ContainerAnimatedCustomOfflineState
                                                       ),
                                                     ],
                                                   )
-                                                : const SizedBox())
+                                                : const SizedBox(),
+                                          ),
                                   ],
                                 ),
                               ),
@@ -638,7 +686,7 @@ class _ContainerAnimatedCustomOfflineState
                           ),
                         ),
                       )
-                    : const SizedBox()
+                    : const SizedBox(),
               ],
             ),
           ),

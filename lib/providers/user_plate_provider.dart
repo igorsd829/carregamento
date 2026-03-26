@@ -1,21 +1,127 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import '../models/user_plate_model.dart';
 
 class Users with ChangeNotifier {
   final indexImage = Random().nextInt(12);
-  var baseUrl = 'https://fila-supercal-default-rtdb.firebaseio.com';
+  // var baseUrl = 'https://fila-supercal-default-rtdb.firebaseio.com';
   Map<String, UserPlate> listNewMockUrl = {};
 
-  Map<String, UserPlate> listNew = {};
+  Map<String, UserPlate> listNew = {
+    '123': UserPlate(
+      date: DateTime.now(),
+      outTime: DateTime.now(),
+      enterTime: DateTime.now(),
+      plate: 'qwe1212',
+      autorized: false,
+      brandTruck: '',
+      id: '123',
+      colorTruck: 'blue',
+      name: 'Igor',
+    ),
+    '234': UserPlate(
+      date: DateTime.now(),
+      outTime: DateTime.now(),
+      enterTime: DateTime.now(),
+      plate: 'qwe1212',
+      autorized: false,
+      brandTruck: '',
+      id: '234',
+      colorTruck: 'pink',
+      name: 'Amanda',
+    ),
+    '345': UserPlate(
+      date: DateTime.now(),
+      outTime: DateTime.now(),
+      enterTime: DateTime.now(),
+      plate: 'qwe1212',
+      autorized: false,
+      brandTruck: '',
+      id: '345',
+      colorTruck: 'green',
+      name: 'Flávio',
+    ),
+  };
   Map<String, UserPlate> listNewTwo = {};
   Map<String, UserPlate> listNewThree = {};
 
-  Map<String, UserPlate> listTrucksLoading = {};
-  Map<String, UserPlate> listTrucksLoaded = {};
+  Map<String, UserPlate> listTrucksLoading = {
+    '456': UserPlate(
+      date: DateTime.now(),
+      outTime: DateTime.now(),
+      enterTime: DateTime.now(),
+      plate: 'qwe1212',
+      autorized: false,
+      brandTruck: '',
+      id: '456',
+      colorTruck: 'blue',
+      name: 'Igor',
+      loading: true,
+    ),
+    '567': UserPlate(
+      date: DateTime.now(),
+      outTime: DateTime.now(),
+      enterTime: DateTime.now(),
+      plate: 'qwe1212',
+      autorized: false,
+      brandTruck: '',
+      id: '567',
+      colorTruck: 'pink',
+      name: 'Amanda',
+      loading: true,
+    ),
+    '678': UserPlate(
+      date: DateTime.now(),
+      outTime: DateTime.now(),
+      enterTime: DateTime.now(),
+      plate: 'qwe1212',
+      autorized: false,
+      brandTruck: '',
+      id: '345',
+      colorTruck: 'green',
+      name: 'Flávio',
+      loading: true,
+    ),
+  };
+  Map<String, UserPlate> listTrucksLoaded = {
+    '789': UserPlate(
+      date: DateTime.now(),
+      outTime: DateTime.now(),
+      enterTime: DateTime.now(),
+      plate: 'qwe1212',
+      autorized: false,
+      brandTruck: '',
+      id: '789',
+      colorTruck: 'blue',
+      name: 'Igor',
+      loaded: true,
+    ),
+    '101112': UserPlate(
+      date: DateTime.now(),
+      outTime: DateTime.now(),
+      enterTime: DateTime.now(),
+      plate: 'qwe1212',
+      autorized: false,
+      brandTruck: '',
+      id: '101112',
+      colorTruck: 'pink',
+      name: 'Amanda',
+      loaded: true,
+    ),
+    '111213': UserPlate(
+      date: DateTime.now(),
+      outTime: DateTime.now(),
+      enterTime: DateTime.now(),
+      plate: 'qwe1212',
+      autorized: false,
+      brandTruck: '',
+      id: '111213',
+      colorTruck: 'green',
+      name: 'Flávio',
+      loaded: true,
+    ),
+  };
   Map<String, UserPlate> listTrucksAllLoaded = {};
   Map<String, UserPlate> listTrucksOffline = {};
 
@@ -70,9 +176,6 @@ class Users with ChangeNotifier {
     listNewThree = {};
     listTrucksLoading = {};
     listTrucksLoaded = {};
-    // listTrucksAllLoaded = {};
-
-    // notifyListeners();
   }
 
   bool indexOne = true;
@@ -92,13 +195,9 @@ class Users with ChangeNotifier {
       indexOne = true;
       indexTwo = false;
       indexThree = false;
-
-      // notifyListeners();
     }
     notifyListeners();
   }
-
-  // List<UserPlate> trucksWindowOne = [];
 
   bool timeTurnWindows = false;
   void turnWindows() {
@@ -117,14 +216,14 @@ class Users with ChangeNotifier {
       return;
     } else {
       var idUser = user.id;
-       user.ready = true;
+      user.ready = true;
       listNew.update(idUser.toString(), (existingUser) {
         existingUser.ready = user.ready;
         existingUser.loading = user.loading;
         existingUser.autorized = user.autorized;
         existingUser.problem = user.problem;
         existingUser.notFound = true;
-        
+
         notifyListeners();
         return existingUser;
       });
@@ -136,7 +235,7 @@ class Users with ChangeNotifier {
       return;
     } else {
       var idUser = user.id;
-       listNew.update(idUser.toString(), (existingUser) {
+      listNew.update(idUser.toString(), (existingUser) {
         existingUser.ready = user.ready;
         existingUser.loading = user.loading;
         existingUser.autorized = user.autorized;
@@ -149,7 +248,7 @@ class Users with ChangeNotifier {
   }
 
   void noProblem(UserPlate? user) {
-   if (user == null) {
+    if (user == null) {
       return;
     } else {
       user.ready = true;
@@ -160,7 +259,7 @@ class Users with ChangeNotifier {
         existingUser.autorized = user.autorized;
         existingUser.problem = false;
         existingUser.notFound = user.notFound;
-        
+
         notifyListeners();
         return existingUser;
       });
@@ -174,38 +273,16 @@ class Users with ChangeNotifier {
   bool statusClosed = false;
   bool noInternet = true;
 
-  Future<void> loadStatus() async {
-    
-  }
-
-  void StatusInite() {
-    
-  }
-
-  void setStatusOpen() {
-    
-  }
-
-  void setStautsStoped() {
-    
-  }
-
-  void setStautsClosed() {
-   
-  }
-
-  void warnigStatusInite() {
-   
-  }
+  void warnigStatusInite() {}
   void isAutorized(UserPlate? user, bool? send, bool? loading) {
     if (user == null) {
       return;
     } else {
       // send = true;
       user.loading = true;
-      
+
       var idUser = user.id;
-       user.ready = true;
+      user.ready = true;
       listNew.update(idUser.toString(), (existingUser) {
         existingUser.ready = user.ready;
         existingUser.loading = user.loading;
@@ -215,42 +292,25 @@ class Users with ChangeNotifier {
         notifyListeners();
         return existingUser;
       });
-    
-      
     }
   }
 
-  //////////////////////////////////////////////////////////////////////////////
-  Future<void> loadWarnig() async {
-   
-  }
+  Future<void> loadWarnig() async {}
 
-  void addWarnig(String warning) {
-   
-  }
+  void addWarnig(String warning) {}
 
-  void clearWarnig() {
-   
-  }
+  void clearWarnig() {}
 
   String expedition = '';
-  Future<void> loadExpedition() async {
-   
-  }
+  Future<void> loadExpedition() async {}
 
-  void addExpeditionInit() {
-  }
+  void addExpeditionInit() {}
 
-  void addExpedition(String expedition) {
-  }
+  void addExpedition(String expedition) {}
 
-  void clearExpedition() {
-   
-  }
+  void clearExpedition() {}
 
-  void clearExpeditionAndAddAll(double all) {
-    
-  }
+  void clearExpeditionAndAddAll(double all) {}
 
   void editTruck(UserPlate? user) async {
     if (user == null) {
@@ -270,12 +330,9 @@ class Users with ChangeNotifier {
         return existingUser;
       });
     }
-    
   }
 
-  void editTruckWeight(UserPlate? user, String peso) {
-    
-  }
+  void editTruckWeight(UserPlate? user, String peso) {}
 
   void truckReady(UserPlate? user) {
     if (user == null) {
@@ -328,57 +385,37 @@ class Users with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeTruckAllLoaded() {
-    // http.delete(Uri.parse('$baseUrl/trucksAllLoaded.json')).then((value) {
-    //   // loadTrucksLoaded();
-
-    //   if (listTrucksAllLoaded.isNotEmpty) {
-    //     listTrucksAllLoaded.clear();
-    //   }
-    //   loadAllTrucksLoaded();
-
-    //   notifyListeners();
-    // });
-  }
+  void removeTruckAllLoaded() {}
 
   void putNew(UserPlate? user) async {
-   
-    
-      var key =  Random().nextInt(100).toString();
-      listNew.putIfAbsent(
-       key,
-        () => UserPlate(
-          id: key,
-          name: user!.name,
-          plate: user.plate,
-          date: user.date,
-          client: user.client,
-          colorTruck: user.colorTruck,
-          autorized: user.autorized,
-          loaded: user.loaded,
-          loading: user.loading,
-          enterTime: user.enterTime,
-          outTime: user.outTime,
-          notFound: user.notFound,
-          brandTruck: user.brandTruck,
-          ready: user.ready,
-          weight: user.weight,
-          obs: user.obs,
-          idTruck: user.idTruck,
-          window: user.window,
-        ),
-        
-      );
-        notifyListeners();
-    
+    var key = Random().nextInt(100).toString();
+    listNew.putIfAbsent(
+      key,
+      () => UserPlate(
+        id: key,
+        name: user!.name,
+        plate: user.plate,
+        date: user.date,
+        client: user.client,
+        colorTruck: user.colorTruck,
+        autorized: user.autorized,
+        loaded: user.loaded,
+        loading: user.loading,
+        enterTime: user.enterTime,
+        outTime: user.outTime,
+        notFound: user.notFound,
+        brandTruck: user.brandTruck,
+        ready: user.ready,
+        weight: user.weight,
+        obs: user.obs,
+        idTruck: user.idTruck,
+        window: user.window,
+      ),
+    );
+    notifyListeners();
   }
 
-  
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //// depois valide esse envio, pra ele ir fazer um get e ver se nessa key o autorized é true, se sim ele pode enviar e veja
-  /// também se na lista que recebeá ele já tem essa key, se sim não enviar, ai deve ser deletado manualmente
-  void addTruckListLoading2(UserPlate? user) {
+  void addTruckListLoading(UserPlate? user) {
     if (user == null) {
       return;
     } else {
@@ -404,8 +441,9 @@ class Users with ChangeNotifier {
           idTruck: user.idTruck,
           window: user.window,
         ),
-      );listNew.remove(user.id);
-       notifyListeners();
+      );
+      listNew.remove(user.id);
+      notifyListeners();
     }
   }
 
@@ -419,14 +457,14 @@ class Users with ChangeNotifier {
           id: user.id,
           name: user.name,
           plate: user.plate,
-          date: user.date,
+          date: DateTime.now(),
           client: user.client,
           colorTruck: user.colorTruck,
           autorized: user.autorized,
           loaded: true,
-          loading: user.loading,
-          enterTime: user.enterTime,
-          outTime: user.outTime,
+          loading: false,
+          enterTime: DateTime.now(),
+          outTime: DateTime.now(),
           notFound: user.notFound,
           brandTruck: user.brandTruck,
           ready: user.ready,
@@ -498,64 +536,6 @@ class Users with ChangeNotifier {
   }
 
   //////////////////////// ADD AVISO IMAGEM URL //////////////////////////////////////////
-  String adSupercal =
-      'https://firebasestorage.googleapis.com/v0/b/minha-autenticidade.appspot.com/o/Imagem%20do%20WhatsApp%20de%202024-05-18%20%C3%A0(s)%2008.48.29_8f51f0a0.jpg?alt=media&token=58a80f49-8abd-4f61-8250-8d28eccf03c6';
-
-  void loadAdSupercal() async {
-    await http.get(Uri.parse('$baseUrl/adsupercal.json')).then((response) {
-      Map<String, dynamic> data = jsonDecode(response.body);
-      if (data['adsupercal'] == '') {
-        adSupercal =
-            'https://firebasestorage.googleapis.com/v0/b/minha-autenticidade.appspot.com/o/Imagem%20do%20WhatsApp%20de%202024-05-18%20%C3%A0(s)%2008.48.29_8f51f0a0.jpg?alt=media&token=58a80f49-8abd-4f61-8250-8d28eccf03c6';
-        return;
-      } else {
-        adSupercal = data['adsupercal'];
-        notifyListeners();
-      }
-    });
-  }
-
-  void adsInit() {
-    http
-        .put(
-          Uri.parse('$baseUrl/adsupercal.json'),
-          body: jsonEncode({
-            'adsupercal':
-                'https://firebasestorage.googleapis.com/v0/b/minha-autenticidade.appspot.com/o/Imagem%20do%20WhatsApp%20de%202024-05-18%20%C3%A0(s)%2008.48.29_8f51f0a0.jpg?alt=media&token=58a80f49-8abd-4f61-8250-8d28eccf03c6',
-          }),
-        )
-        .then((value) {
-          loadExpedition();
-          notifyListeners();
-        });
-  }
-
-  void addNewAds(String ads) {
-    http
-        .put(
-          Uri.parse('$baseUrl/adsupercal.json'),
-          body: jsonEncode({'adsupercal': ads}),
-        )
-        .then((value) {
-          loadExpedition();
-          notifyListeners();
-        });
-  }
-
-  void clearAdsSupercal() {
-    http
-        .put(
-          Uri.parse('$baseUrl/adsupercal.json'),
-          body: jsonEncode({'adsupercal': ''}),
-        )
-        .then((value) {
-          loadExpedition();
-          notifyListeners();
-        });
-  }
-
-  //////////////////////////////////////////////////////////////////////////////////////
-
   void showAlertToChauffeur(BuildContext context) {
     {
       Future.delayed(Duration(milliseconds: 100)).then((_) {
@@ -571,7 +551,10 @@ class Users with ChangeNotifier {
                       padding: const EdgeInsets.all(8.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.asset('assets/images/logo_unitins_2021.png', width: 500),
+                        child: Image.asset(
+                          'assets/images/logo_unitins_2021.png',
+                          width: 500,
+                        ),
                       ),
                     ),
                   ),

@@ -143,7 +143,7 @@ class _HelpPageState extends State<HelpPage> {
       ),
       appBar: AppBar(
         centerTitle: true,
-
+        backgroundColor: Colors.grey.shade100,
         title: Row(
           children: [
             Text('AJUDA', style: TextStyle(color: Colors.grey.shade600)),
@@ -371,7 +371,7 @@ class _HelpPageState extends State<HelpPage> {
                 : const SizedBox(),
           ],
         ),
-       
+
         actions: [],
       ),
       backgroundColor: Colors.white,

@@ -14,14 +14,15 @@ class ContainerAnimatedCustom extends StatefulWidget {
   final double cardWidth;
   final double cardHeight;
   final int index;
-  const ContainerAnimatedCustom(
-      {required this.index,
-      required this.isAdm,
-      required this.load,
-      required this.user,
-      required this.cardHeight,
-      required this.cardWidth,
-      super.key});
+  const ContainerAnimatedCustom({
+    required this.index,
+    required this.isAdm,
+    required this.load,
+    required this.user,
+    required this.cardHeight,
+    required this.cardWidth,
+    super.key,
+  });
 
   @override
   State<ContainerAnimatedCustom> createState() =>
@@ -38,24 +39,18 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
   bool showColorTruck = true;
   Color colorBorderCardTruck = Colors.transparent;
 
-  Color statusCard = Colors.grey.shade300;
+  Color statusCard = Colors.white;
   Color colorTruck = Colors.grey.shade300;
 
   @override
   Widget build(BuildContext context) {
-    // final Users users = Provider.of(context);
-
-    // if (widget.user.colorTruck == 'noColor') {
-    //   colorBorderCardTruck = Colors.transparent;
-    // }
-
     if (widget.user.loading) {
       statusCard = Colors.greenAccent;
     } else if (widget.user.notFound) {
       statusCard = Colors.redAccent;
     } else {
       // statusCard = Colors.grey.shade400;
-      statusCard = Colors.grey.shade400.withOpacity(0.7);
+      statusCard = Colors.white;
     }
     final Users users = Provider.of(context, listen: false);
     // bool isAdm = users.adm;
@@ -124,7 +119,8 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
       duration: const Duration(milliseconds: 300),
       child: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
+          gradient: LinearGradient(
+            colors: [
               statusCard,
               statusCard,
               statusCard,
@@ -132,14 +128,15 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
               statusCard,
               statusCard,
               statusCard,
-              statusCard.withOpacity(0.7)
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-            borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 0,
-            vertical: 0,
+              statusCard.withOpacity(0.7),
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -150,16 +147,18 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        width: 10,
-                      ),
+                      const SizedBox(width: 10),
                       Container(
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black.withOpacity(0.7), width: 1),
-                            color: Colors.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5))),
+                          border: Border.all(
+                            color: Colors.black.withOpacity(0.7),
+                            width: 1,
+                          ),
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: InkWell(
@@ -169,12 +168,18 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                             child: Column(
                               children: [
                                 widget.index < 9
-                                    ? Text('0${widget.index + 1}º',
-                                        style:
-                                            TextStyle(fontSize: textScale * 20))
-                                    : Text('${widget.index + 1}º',
+                                    ? Text(
+                                        '0${widget.index + 1}º',
                                         style: TextStyle(
-                                            fontSize: textScale * 20)),
+                                          fontSize: textScale * 20,
+                                        ),
+                                      )
+                                    : Text(
+                                        '${widget.index + 1}º',
+                                        style: TextStyle(
+                                          fontSize: textScale * 20,
+                                        ),
+                                      ),
                                 ////////////////////////////////////
                                 // Container(
                                 //   color: colorTruck,
@@ -187,14 +192,13 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
+                      const SizedBox(width: 5),
                       // Expanded(child: SizedBox()),
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(5)),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
                         child: InkWell(
                           onDoubleTap: () {
                             if (!open) {
@@ -215,16 +219,19 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.black.withOpacity(0.7),
-                                          width: 1),
-                                      color: Colors.white,
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(5))),
+                                    border: Border.all(
+                                      color: Colors.black.withOpacity(0.7),
+                                      width: 1,
+                                    ),
+                                    color: Colors.white,
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                  ),
                                   child: Text(
-                                      '${widget.user.plate.substring(0, 3).toUpperCase()}-${widget.user.plate.substring(3, 7).toUpperCase()}',
-                                      style:
-                                          TextStyle(fontSize: textScale * 15)),
+                                    '${widget.user.plate.substring(0, 3).toUpperCase()}-${widget.user.plate.substring(3, 7).toUpperCase()}',
+                                    style: TextStyle(fontSize: textScale * 15),
+                                  ),
                                 ),
                               ],
                             ),
@@ -234,13 +241,13 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                       showColorTruck
                           ? Row(
                               children: [
-                                const SizedBox(
-                                  width: 5,
-                                ),
+                                const SizedBox(width: 5),
                                 Container(
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: colorBorderCardTruck, width: 1),
+                                      color: colorBorderCardTruck,
+                                      width: 1,
+                                    ),
                                     borderRadius: BorderRadius.circular(4),
                                     color: colorTruck,
                                   ),
@@ -249,9 +256,7 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                                 ),
                               ],
                             )
-                          : const SizedBox(
-                              width: 0,
-                            ),
+                          : const SizedBox(width: 0),
                       widget.isAdm
                           ? Row(
                               children: [
@@ -259,60 +264,69 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                                     ? GestureDetector(
                                         child: widget.load
                                             ? IconButton(
-                                                padding:
-                                                    const EdgeInsets.all(0),
+                                                padding: const EdgeInsets.all(
+                                                  0,
+                                                ),
                                                 icon: Icon(
                                                   Icons.refresh,
                                                   size: textScale * 14,
                                                 ),
-                                                onPressed: () {})
+                                                onPressed: () {},
+                                              )
                                             : IconButton(
-                                                padding:
-                                                    const EdgeInsets.all(0),
+                                                padding: const EdgeInsets.all(
+                                                  0,
+                                                ),
                                                 icon: Icon(
                                                   Icons.upload,
                                                   size: textScale * 14,
                                                 ),
-                                                onPressed: () {}),
+                                                onPressed: () {},
+                                              ),
                                         onDoubleTap: () {
                                           if (widget.load) {
                                             return;
                                           } else {
-                                            users.addTruckListLoading2(
-                                                widget.user);
+                                            users.addTruckListLoading(
+                                              widget.user,
+                                            );
                                           }
                                         },
                                       )
-                                   
                                     : GestureDetector(
                                         child: widget.load
                                             ? IconButton(
-                                                padding:
-                                                    const EdgeInsets.all(0),
+                                                padding: const EdgeInsets.all(
+                                                  0,
+                                                ),
                                                 icon: Icon(
                                                   Icons.refresh,
                                                   size: textScale * 14,
                                                 ),
-                                                onPressed: () {})
+                                                onPressed: () {},
+                                              )
                                             : IconButton(
-                                                padding:
-                                                    const EdgeInsets.all(0),
+                                                padding: const EdgeInsets.all(
+                                                  0,
+                                                ),
                                                 icon: Icon(
                                                   Icons.check,
                                                   size: textScale * 14,
                                                 ),
-                                                onPressed: () {}),
+                                                onPressed: () {},
+                                              ),
                                         onDoubleTap: () {
                                           if (widget.load) {
                                             return;
                                           } else {
-                                            users.isAutorized(widget.user,
-                                                sending, widget.user.loading);
-                                           
+                                            users.isAutorized(
+                                              widget.user,
+                                              sending,
+                                              widget.user.loading,
+                                            );
                                           }
                                         },
-                                      )
-
+                                      ),
                               ],
                             )
                           : const SizedBox(),
@@ -325,7 +339,8 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                                         Icons.refresh,
                                         size: textScale * 14,
                                       ),
-                                      onPressed: () {})
+                                      onPressed: () {},
+                                    )
                                   : IconButton(
                                       padding: const EdgeInsets.all(0),
                                       icon: Icon(
@@ -334,13 +349,13 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                                       ),
                                       onPressed: () {
                                         ClipBoardCustom.copy(
-                                            widget.user.idTruck!);
-                                      }),
-                              onDoubleTap: () {
-                              
-                              },
+                                          widget.user.idTruck!,
+                                        );
+                                      },
+                                    ),
+                              onDoubleTap: () {},
                             )
-                          : const SizedBox()
+                          : const SizedBox(),
                     ],
                   ),
                 ),
@@ -353,12 +368,15 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                             height: widget.cardWidth * 0.3,
                             width: widget.cardWidth - 20,
                             decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.black.withOpacity(0.7),
-                                    width: 1),
-                                color: Colors.white,
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5))),
+                              border: Border.all(
+                                color: Colors.black.withOpacity(0.7),
+                                width: 1,
+                              ),
+                              color: Colors.white,
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(5),
+                              ),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SingleChildScrollView(
@@ -372,44 +390,46 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                                               Text(
                                                 'ID: ${widget.user.idTruck!.toUpperCase()}',
                                                 style: TextStyle(
-                                                    fontSize: textScale * 10,
-                                                    color: Colors.black87),
+                                                  fontSize: textScale * 10,
+                                                  color: Colors.black87,
+                                                ),
                                               ),
-                                              
                                             ],
                                           )
                                         : const SizedBox(),
                                     Text(
                                       'MOTORISTA: ${widget.user.name.toUpperCase()}',
                                       style: TextStyle(
-                                          fontSize: textScale * 10,
-                                          color: Colors.black87),
+                                        fontSize: textScale * 10,
+                                        color: Colors.black87,
+                                      ),
                                     ),
                                     widget.user.obs != ''
                                         ? Text(
                                             'OBSERVAÇÃO: ${widget.user.obs.toUpperCase()}',
                                             style: TextStyle(
-                                                fontSize: textScale * 10,
-                                                color: Colors.black87),
+                                              fontSize: textScale * 10,
+                                              color: Colors.black87,
+                                            ),
                                           )
                                         : const SizedBox(),
                                     widget.isAdm && widget.user.client != ''
                                         ? Text(
                                             'CLIENTE: ${widget.user.client.toUpperCase()}',
                                             style: TextStyle(
-                                                fontSize: textScale * 10,
-                                                color: Colors.black87),
+                                              fontSize: textScale * 10,
+                                              color: Colors.black87,
+                                            ),
                                           )
                                         : const SizedBox(),
 
                                     Text(
                                       // ignore: unnecessary_null_comparison
-                                      'CHEGADA: ${DateFormat('dd/MM/y, HH:mm').format(
-                                              widget.user.date,
-                                            )}',
+                                      'CHEGADA: ${DateFormat('dd/MM/y, HH:mm').format(widget.user.date)}',
                                       style: TextStyle(
-                                          fontSize: textScale * 10,
-                                          color: Colors.black87),
+                                        fontSize: textScale * 10,
+                                        color: Colors.black87,
+                                      ),
                                     ),
                                     widget.load
                                         ? const SizedBox()
@@ -422,69 +442,83 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                                                     children: [
                                                       GestureDetector(
                                                         child: IconButton(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(0),
-                                                            icon: Icon(
-                                                              Icons.refresh,
-                                                              size: textScale *
-                                                                  14,
-                                                            ),
-                                                            onPressed: () {}),
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                0,
+                                                              ),
+                                                          icon: Icon(
+                                                            Icons.refresh,
+                                                            size:
+                                                                textScale * 14,
+                                                          ),
+                                                          onPressed: () {},
+                                                        ),
                                                         onDoubleTap: () {
-                                                          widget.user
+                                                          widget
+                                                                  .user
                                                                   .autorized =
                                                               false;
                                                           widget.user.notFound =
                                                               false;
-                                                          widget.user
+                                                          widget
+                                                                  .user
                                                                   .autorized =
                                                               false;
                                                           widget.user.loading =
                                                               false;
 
                                                           statusCard = Colors
-                                                              .grey.shade300;
+                                                              .grey
+                                                              .shade300;
                                                           users.noProblem(
-                                                              widget.user);
-                                                        },
-                                                      ),
-                                                     
-                                                      GestureDetector(
-                                                        child: IconButton(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(0),
-                                                            icon: Icon(
-                                                              Icons.close,
-                                                              size: textScale *
-                                                                  14,
-                                                            ),
-                                                            onPressed: () {}),
-                                                        onDoubleTap: () {
-                                                          widget.user.notFound =
-                                                              !widget.user
-                                                                  .notFound;
-                                                          widget.user
-                                                                  .autorized =
-                                                              !widget.user
-                                                                  .autorized;
-                                                          users.isNotFound(
-                                                              widget.user);
+                                                            widget.user,
+                                                          );
                                                         },
                                                       ),
 
                                                       GestureDetector(
                                                         child: IconButton(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(0),
-                                                            icon: Icon(
-                                                              Icons.edit,
-                                                              size: textScale *
-                                                                  14,
-                                                            ),
-                                                            onPressed: () {}),
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                0,
+                                                              ),
+                                                          icon: Icon(
+                                                            Icons.close,
+                                                            size:
+                                                                textScale * 14,
+                                                          ),
+                                                          onPressed: () {},
+                                                        ),
+                                                        onDoubleTap: () {
+                                                          widget.user.notFound =
+                                                              !widget
+                                                                  .user
+                                                                  .notFound;
+                                                          widget
+                                                                  .user
+                                                                  .autorized =
+                                                              !widget
+                                                                  .user
+                                                                  .autorized;
+                                                          users.isNotFound(
+                                                            widget.user,
+                                                          );
+                                                        },
+                                                      ),
+
+                                                      GestureDetector(
+                                                        child: IconButton(
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                0,
+                                                              ),
+                                                          icon: Icon(
+                                                            Icons.edit,
+                                                            size:
+                                                                textScale * 14,
+                                                          ),
+                                                          onPressed: () {},
+                                                        ),
                                                         onDoubleTap: () {
                                                           Navigator.of(
                                                             context,
@@ -499,84 +533,96 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
 
                                                       GestureDetector(
                                                         child: IconButton(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(0),
-                                                            icon: Icon(
-                                                              Icons.delete,
-                                                              size: textScale *
-                                                                  14,
-                                                            ),
-                                                            onPressed: () {}),
+                                                          padding:
+                                                              const EdgeInsets.all(
+                                                                0,
+                                                              ),
+                                                          icon: Icon(
+                                                            Icons.delete,
+                                                            size:
+                                                                textScale * 14,
+                                                          ),
+                                                          onPressed: () {},
+                                                        ),
                                                         onDoubleTap: () {
                                                           showDialog(
                                                             context: context,
                                                             builder: (context) {
                                                               return AlertDialog(
                                                                 shape: RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            2)),
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                        2,
+                                                                      ),
+                                                                ),
                                                                 title: const Text(
-                                                                    'Remover esse caminhão?'),
+                                                                  'Remover esse caminhão?',
+                                                                ),
                                                                 content:
                                                                     const Text(
-                                                                        ''),
+                                                                      '',
+                                                                    ),
                                                                 actions: [
                                                                   ElevatedButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        Navigator.of(context)
-                                                                            .pop();
-                                                                      },
-                                                                      style: ElevatedButton.styleFrom(
-                                                                          foregroundColor: Colors
+                                                                    onPressed: () {
+                                                                      Navigator.of(
+                                                                        context,
+                                                                      ).pop();
+                                                                    },
+                                                                    style: ElevatedButton.styleFrom(
+                                                                      foregroundColor:
+                                                                          Colors
                                                                               .black54,
-                                                                          shape:
-                                                                              const RoundedRectangleBorder(),
-                                                                          backgroundColor: Colors
-                                                                              .grey
-                                                                              .shade200),
-                                                                      child:
-                                                                          Text(
-                                                                        'NÂO',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              textScale * 12,
-                                                                        ),
-                                                                      )),
+                                                                      shape:
+                                                                          const RoundedRectangleBorder(),
+                                                                      backgroundColor: Colors
+                                                                          .grey
+                                                                          .shade200,
+                                                                    ),
+                                                                    child: Text(
+                                                                      'NÂO',
+                                                                      style: TextStyle(
+                                                                        fontSize:
+                                                                            textScale *
+                                                                            12,
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                   ElevatedButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        Provider.of<Users>(context,
-                                                                                listen: false)
-                                                                            .clearListOffline();
+                                                                    onPressed: () {
+                                                                      Provider.of<Users>(
+                                                                        context,
+                                                                        listen:
+                                                                            false,
+                                                                      ).clearListOffline();
 
-                                                                        users.removeTruckList(
-                                                                            widget.user);
-                                                                        Navigator
-                                                                            .of(
-                                                                          context,
-                                                                        ).pop();
-                                                                      },
-                                                                      style: ElevatedButton.styleFrom(
-                                                                          foregroundColor: Colors
+                                                                      users.removeTruckList(
+                                                                        widget
+                                                                            .user,
+                                                                      );
+                                                                      Navigator.of(
+                                                                        context,
+                                                                      ).pop();
+                                                                    },
+                                                                    style: ElevatedButton.styleFrom(
+                                                                      foregroundColor:
+                                                                          Colors
                                                                               .black54,
-                                                                          shape:
-                                                                              const RoundedRectangleBorder(),
-                                                                          backgroundColor: Colors
-                                                                              .grey
-                                                                              .shade200),
-                                                                      child:
-                                                                          Text(
-                                                                        'SIM',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontSize:
-                                                                              textScale * 12,
-                                                                        ),
-                                                                      )),
+                                                                      shape:
+                                                                          const RoundedRectangleBorder(),
+                                                                      backgroundColor: Colors
+                                                                          .grey
+                                                                          .shade200,
+                                                                    ),
+                                                                    child: Text(
+                                                                      'SIM',
+                                                                      style: TextStyle(
+                                                                        fontSize:
+                                                                            textScale *
+                                                                            12,
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 ],
                                                               );
                                                             },
@@ -585,7 +631,8 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                                                       ),
                                                     ],
                                                   )
-                                                : const SizedBox())
+                                                : const SizedBox(),
+                                          ),
                                   ],
                                 ),
                               ),
@@ -593,7 +640,7 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                           ),
                         ),
                       )
-                    : const SizedBox()
+                    : const SizedBox(),
               ],
             ),
           ),

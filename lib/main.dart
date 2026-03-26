@@ -25,11 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => Users(),
-        )
-      ],
+      providers: [ChangeNotifierProvider(create: (_) => Users())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         scrollBehavior: const MaterialScrollBehavior().copyWith(
@@ -37,12 +33,11 @@ class MyApp extends StatelessWidget {
             PointerDeviceKind.mouse,
             PointerDeviceKind.touch,
             PointerDeviceKind.stylus,
-            PointerDeviceKind.unknown
+            PointerDeviceKind.unknown,
           },
         ),
-        title: 'CarregamentoConectado',
-        theme:
-            ThemeData(
+        title: 'Carregamento Conectado',
+        theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
           useMaterial3: true,
         ),
@@ -61,7 +56,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.list_offline: (context) =>
               const QueueOfTrucksOffline(isAdm: false, load: false),
           AppRoutes.data_truks_loaded: (context) =>
-              const QueueOfTrucksLoaded(isAdm: true, load: false,),
+              const QueueOfTrucksLoaded(isAdm: true, load: false),
           AppRoutes.data_truks_all: (context) =>
               const QueueOfTrucksLoadedAll(isAdm: true),
           AppRoutes.trucks_scheduled: (context) =>

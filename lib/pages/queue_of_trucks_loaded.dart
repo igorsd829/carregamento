@@ -9,8 +9,11 @@ class QueueOfTrucksLoaded extends StatefulWidget {
   final bool isAdm;
   final bool load;
 
-  const QueueOfTrucksLoaded(
-      {required this.isAdm, required this.load, super.key});
+  const QueueOfTrucksLoaded({
+    required this.isAdm,
+    required this.load,
+    super.key,
+  });
 
   @override
   State<QueueOfTrucksLoaded> createState() => _QueueOfTrucksLoadedState();
@@ -69,52 +72,55 @@ class _QueueOfTrucksLoadedState extends State<QueueOfTrucksLoaded> {
     }
     var larguraCard = larguraDaTela / coluns;
     List<UserPlate> trucksLoaded = [];
-    users.listTrucksLoaded.forEach(
-      (key, value) {
-        trucksLoaded.add(value);
-      },
-    );
+    users.listTrucksLoaded.forEach((key, value) {
+      trucksLoaded.add(value);
+    });
 
     return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: isLandScape
-            ? SingleChildScrollView(
-                padding: const EdgeInsets.all(0),
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 2),
-                  child: Wrap(
-                      direction: Axis.vertical,
-                      spacing: 2,
-                      runSpacing: 1,
-                      children: trucksLoaded.map((e) {
-                        int index = trucksLoaded.indexOf(e);
-                        return ContainerAnimatedCustomloaded(
-                            isAdm: widget.isAdm,
-                            load: widget.load,
-                            index: index,
-                            user: e,
-                            cardHeight: alturaCard,
-                            cardWidth: larguraCard);
-                      }).toList()),
-                ))
-            : Padding(
-                padding: const EdgeInsets.all(4),
-                child: ListView(
+      backgroundColor: Colors.transparent,
+      body: isLandScape
+          ? SingleChildScrollView(
+              padding: const EdgeInsets.all(0),
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Wrap(
+                  direction: Axis.vertical,
+                  spacing: 2,
+                  runSpacing: 1,
                   children: trucksLoaded.map((e) {
                     int index = trucksLoaded.indexOf(e);
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2),
-                      child: ContainerAnimatedCustomPhoneLoaded(
-                          load: widget.load,
-                          isAdm: widget.isAdm,
-                          index: index,
-                          user: e,
-                          cardHeight: 50,
-                          cardWidth: 300),
+                    return ContainerAnimatedCustomloaded(
+                      isAdm: widget.isAdm,
+                      load: widget.load,
+                      index: index,
+                      user: e,
+                      cardHeight: alturaCard,
+                      cardWidth: larguraCard,
                     );
                   }).toList(),
                 ),
-              ));
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(4),
+              child: ListView(
+                children: trucksLoaded.map((e) {
+                  int index = trucksLoaded.indexOf(e);
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2),
+                    child: ContainerAnimatedCustomPhoneLoaded(
+                      load: widget.load,
+                      isAdm: widget.isAdm,
+                      index: index,
+                      user: e,
+                      cardHeight: 50,
+                      cardWidth: 300,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+    );
   }
 }

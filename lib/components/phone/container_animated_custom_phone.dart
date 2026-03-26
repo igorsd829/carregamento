@@ -15,14 +15,15 @@ class ContainerAnimatedCustomPhone extends StatefulWidget {
   final double cardHeight;
   final int index;
 
-  const ContainerAnimatedCustomPhone(
-      {required this.index,
-      required this.user,
-      required this.load,
-      required this.isAdm,
-      required this.cardHeight,
-      required this.cardWidth,
-      super.key});
+  const ContainerAnimatedCustomPhone({
+    required this.index,
+    required this.user,
+    required this.load,
+    required this.isAdm,
+    required this.cardHeight,
+    required this.cardWidth,
+    super.key,
+  });
 
   @override
   State<ContainerAnimatedCustomPhone> createState() =>
@@ -100,18 +101,20 @@ class _ContainerAnimatedCustomPhoneState
       duration: const Duration(milliseconds: 300),
       child: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
+          gradient: LinearGradient(
+            colors: [
               statusCard,
               statusCard,
               statusCard,
               statusCard.withOpacity(0.9),
-            ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
-            borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 1,
-            vertical: 2,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 1, vertical: 2),
           child: SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
@@ -121,36 +124,41 @@ class _ContainerAnimatedCustomPhoneState
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      width: 2,
-                    ),
+                    const SizedBox(width: 2),
                     Container(
                       decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.black.withOpacity(0.7), width: 1),
-                          color: Colors.white,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5))),
+                        border: Border.all(
+                          color: Colors.black.withOpacity(0.7),
+                          width: 1,
+                        ),
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(5),
+                        ),
+                      ),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Column(
                           children: [
                             widget.index < 9
-                                ? Text('0${widget.index + 1}º',
-                                    style: TextStyle(fontSize: textScale * 22))
-                                : Text('${widget.index + 1}º',
-                                    style: TextStyle(fontSize: textScale * 22)),
+                                ? Text(
+                                    '0${widget.index + 1}º',
+                                    style: TextStyle(fontSize: textScale * 22),
+                                  )
+                                : Text(
+                                    '${widget.index + 1}º',
+                                    style: TextStyle(fontSize: textScale * 22),
+                                  ),
                           ],
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Container(
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                       child: InkWell(
                         onDoubleTap: () {
                           if (!open) {
@@ -170,18 +178,21 @@ class _ContainerAnimatedCustomPhoneState
                             children: [
                               Container(
                                 decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.black.withOpacity(0.7),
-                                        width: 1),
-                                    color: Colors.white,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(5))),
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.7),
+                                    width: 1,
+                                  ),
+                                  color: Colors.white,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(5),
+                                  ),
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(1),
                                   child: Text(
-                                      '${widget.user.plate.substring(0, 3).toUpperCase()}-${widget.user.plate.substring(3, 7).toUpperCase()}',
-                                      style:
-                                          TextStyle(fontSize: textScale * 16)),
+                                    '${widget.user.plate.substring(0, 3).toUpperCase()}-${widget.user.plate.substring(3, 7).toUpperCase()}',
+                                    style: TextStyle(fontSize: textScale * 16),
+                                  ),
                                 ),
                               ),
                             ],
@@ -189,32 +200,33 @@ class _ContainerAnimatedCustomPhoneState
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black.withOpacity(0.7), width: 1),
-                            color: Colors.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5))),
+                          border: Border.all(
+                            color: Colors.black.withOpacity(0.7),
+                            width: 1,
+                          ),
+                          color: Colors.white,
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5),
+                          ),
+                        ),
                         child: userNameLength > 8
                             ? Text(
                                 '${widget.user.name.substring(0, 8).toUpperCase()}.',
-                                style: TextStyle(fontSize: textScale * 14))
-                            : Text('${widget.user.name.toUpperCase()}.',
-                                style: TextStyle(fontSize: textScale * 14)),
+                                style: TextStyle(fontSize: textScale * 14),
+                              )
+                            : Text(
+                                '${widget.user.name.toUpperCase()}.',
+                                style: TextStyle(fontSize: textScale * 14),
+                              ),
                       ),
                     ),
                     widget.load || !showColorTruck
-                        ? const SizedBox(
-                            width: 0,
-                          )
-                        : const SizedBox(
-                            width: 10,
-                          ),
+                        ? const SizedBox(width: 0)
+                        : const SizedBox(width: 10),
                     // const Expanded(child: SizedBox()),
                     widget.load || !showColorTruck
                         ? const SizedBox()
@@ -233,70 +245,71 @@ class _ContainerAnimatedCustomPhoneState
                             onPressed: () {
                               ClipBoardCustom.copy(widget.user.idTruck!);
                             },
-                            icon: const Icon(Icons.calendar_month))
+                            icon: const Icon(Icons.calendar_month),
+                          )
                         : const SizedBox(),
 
                     // widget.user.loading && widget.isAdm
-
                     widget.user.loading && widget.isAdm && !widget.load
                         ? Padding(
                             padding: const EdgeInsets.all(0),
                             child: Material(
-                                shadowColor: Colors.black,
-                                color: Colors.transparent,
-                                child: widget.load
-                                    ? const SizedBox()
-                                    : InkWell(
-                                        splashColor: Colors.black,
-                                        borderRadius: BorderRadius.circular(20),
-                                        onLongPress: () {
-                                          users.addTruckListLoading2(
-                                              widget.user);
-                                        },
-                                        child: IconButton(
-                                            padding: EdgeInsets.all(8),
-                                            icon: Icon(
-                                              Icons.upload,
-                                              size: textScale * 30,
-                                            ),
-                                            onPressed: () {}),
-                                      )))
-                        : widget.isAdm && !widget.load
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.check,
-                                  size: textScale * 30,
-                                  color: Colors.black45,
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () {
-                                      widget.user.loading = true;
-                                    },
-                                  );
-                                  users.isAutorized(widget.user, sending,
-                                      widget.user.loading);
-                                })
-                            : Padding(
-                                padding: const EdgeInsets.all(0),
-                                child: widget.load
-                                    ? IconButton(
-                                        padding: const EdgeInsets.all(0),
+                              shadowColor: Colors.black,
+                              color: Colors.transparent,
+                              child: widget.load
+                                  ? const SizedBox()
+                                  : InkWell(
+                                      splashColor: Colors.black,
+                                      borderRadius: BorderRadius.circular(20),
+                                      onLongPress: () {
+                                        users.addTruckListLoading(widget.user);
+                                      },
+                                      child: IconButton(
+                                        padding: EdgeInsets.all(8),
                                         icon: Icon(
-                                          color: Colors.black45,
-                                          Icons.refresh,
+                                          Icons.upload,
                                           size: textScale * 30,
                                         ),
-                                        onPressed: () {})
-                                    : const SizedBox(
-                                        width: 20,
+                                        onPressed: () {},
                                       ),
-                              )
+                                    ),
+                            ),
+                          )
+                        : widget.isAdm && !widget.load
+                        ? IconButton(
+                            icon: Icon(
+                              Icons.check,
+                              size: textScale * 30,
+                              color: Colors.black45,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                widget.user.loading = true;
+                              });
+                              users.isAutorized(
+                                widget.user,
+                                sending,
+                                widget.user.loading,
+                              );
+                            },
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: widget.load
+                                ? IconButton(
+                                    padding: const EdgeInsets.all(0),
+                                    icon: Icon(
+                                      color: Colors.black45,
+                                      Icons.refresh,
+                                      size: textScale * 30,
+                                    ),
+                                    onPressed: () {},
+                                  )
+                                : const SizedBox(width: 20),
+                          ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 about
                     ? SingleChildScrollView(
                         scrollDirection: Axis.vertical,
@@ -304,8 +317,9 @@ class _ContainerAnimatedCustomPhoneState
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Container(
                             decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SingleChildScrollView(
@@ -319,8 +333,9 @@ class _ContainerAnimatedCustomPhoneState
                                               Text(
                                                 'ID: ${widget.user.idTruck!.toUpperCase()}',
                                                 style: TextStyle(
-                                                    fontSize: textScale * 15,
-                                                    color: Colors.black87),
+                                                  fontSize: textScale * 15,
+                                                  color: Colors.black87,
+                                                ),
                                               ),
                                               // Padding(
                                               //   padding:
@@ -347,52 +362,51 @@ class _ContainerAnimatedCustomPhoneState
                                     Text(
                                       'MOTORISTA: ${widget.user.name.toUpperCase()}',
                                       style: TextStyle(
-                                          fontSize: textScale * 15,
-                                          color: Colors.black87),
+                                        fontSize: textScale * 15,
+                                        color: Colors.black87,
+                                      ),
                                     ),
                                     widget.user.obs != ''
                                         ? Text(
                                             'OBSERVAÇÃO: ${widget.user.obs.toUpperCase()}',
                                             style: TextStyle(
-                                                fontSize: textScale * 15,
-                                                color: Colors.black87),
+                                              fontSize: textScale * 15,
+                                              color: Colors.black87,
+                                            ),
                                           )
                                         : const SizedBox(),
                                     widget.isAdm && widget.user.client != ''
                                         ? Text(
                                             'CLIENTE: ${widget.user.client.toUpperCase()}',
                                             style: TextStyle(
-                                                fontSize: textScale * 15,
-                                                color: Colors.black87),
+                                              fontSize: textScale * 15,
+                                              color: Colors.black87,
+                                            ),
                                           )
                                         : const SizedBox(),
                                     Text(
                                       // ignore: unnecessary_null_comparison
-                                      'CHEGADA: ${DateFormat('dd/MM/y, HH:mm').format(
-                                              widget.user.date,
-                                            )}',
+                                      'CHEGADA: ${DateFormat('dd/MM/y, HH:mm').format(widget.user.date)}',
                                       style: TextStyle(
-                                          fontSize: textScale * 15,
-                                          color: Colors.black87),
+                                        fontSize: textScale * 15,
+                                        color: Colors.black87,
+                                      ),
                                     ),
                                     Text(
                                       // ignore: unnecessary_null_comparison
                                       widget.user.enterTime == null
                                           ? ''
-                                          : 'ENTRADA: ${DateFormat('dd/MM/y, HH:mm').format(
-                                              widget.user.enterTime!,
-                                            )}',
+                                          : 'ENTRADA: ${DateFormat('dd/MM/y, HH:mm').format(widget.user.enterTime!)}',
                                       style: TextStyle(
-                                          fontSize: textScale * 15,
-                                          color: Colors.black87),
+                                        fontSize: textScale * 15,
+                                        color: Colors.black87,
+                                      ),
                                     ),
                                     Text(
                                       // ignore: unnecessary_null_comparison
                                       widget.user.outTime == null
                                           ? ''
-                                          : 'SAÍDA: ${DateFormat('dd/MM/y, HH:mm').format(
-                                              widget.user.outTime!,
-                                            )}',
+                                          : 'SAÍDA: ${DateFormat('dd/MM/y, HH:mm').format(widget.user.outTime!)}',
                                       style: TextStyle(
                                         fontSize: textScale * 15,
                                         color: Colors.black,
@@ -408,147 +422,168 @@ class _ContainerAnimatedCustomPhoneState
                                                   ? Row(
                                                       children: [
                                                         IconButton(
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                widget.user
-                                                                        .autorized =
-                                                                    false;
-                                                                widget.user
-                                                                        .notFound =
-                                                                    false;
-                                                                widget.user
-                                                                        .autorized =
-                                                                    false;
-                                                                widget.user
-                                                                        .loading =
-                                                                    false;
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              widget
+                                                                      .user
+                                                                      .autorized =
+                                                                  false;
+                                                              widget
+                                                                      .user
+                                                                      .notFound =
+                                                                  false;
+                                                              widget
+                                                                      .user
+                                                                      .autorized =
+                                                                  false;
+                                                              widget
+                                                                      .user
+                                                                      .loading =
+                                                                  false;
 
-                                                                statusCard =
-                                                                    Colors.grey
-                                                                        .shade300;
-                                                                users.noProblem(
-                                                                    widget
-                                                                        .user);
-                                                              });
-                                                            },
-                                                            icon: Icon(
-                                                              Icons.refresh,
-                                                              size: textScale *
-                                                                  20,
-                                                            )),
+                                                              statusCard =
+                                                                  Colors
+                                                                      .grey
+                                                                      .shade300;
+                                                              users.noProblem(
+                                                                widget.user,
+                                                              );
+                                                            });
+                                                          },
+                                                          icon: Icon(
+                                                            Icons.refresh,
+                                                            size:
+                                                                textScale * 20,
+                                                          ),
+                                                        ),
                                                         IconButton(
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                widget.user
-                                                                        .notFound =
-                                                                    !widget.user
-                                                                        .notFound;
-                                                                widget.user
-                                                                        .autorized =
-                                                                    !widget.user
-                                                                        .autorized;
-                                                                users.isNotFound(
-                                                                    widget
-                                                                        .user);
-                                                              });
-                                                            },
-                                                            icon: Icon(
-                                                              Icons.close,
-                                                              size: textScale *
-                                                                  20,
-                                                            )),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              widget
+                                                                      .user
+                                                                      .notFound =
+                                                                  !widget
+                                                                      .user
+                                                                      .notFound;
+                                                              widget
+                                                                      .user
+                                                                      .autorized =
+                                                                  !widget
+                                                                      .user
+                                                                      .autorized;
+                                                              users.isNotFound(
+                                                                widget.user,
+                                                              );
+                                                            });
+                                                          },
+                                                          icon: Icon(
+                                                            Icons.close,
+                                                            size:
+                                                                textScale * 20,
+                                                          ),
+                                                        ),
                                                         IconButton(
-                                                            onPressed: () {
-                                                              Navigator.of(
-                                                                context,
-                                                              ).pushNamed(
-                                                                  AppRoutes
-                                                                      .user_form_new,
-                                                                  arguments:
-                                                                      widget
-                                                                          .user);
-                                                            },
-                                                            icon: Icon(
-                                                              Icons.edit,
-                                                              size: textScale *
-                                                                  20,
-                                                            )),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                              context,
+                                                            ).pushNamed(
+                                                              AppRoutes
+                                                                  .user_form_new,
+                                                              arguments:
+                                                                  widget.user,
+                                                            );
+                                                          },
+                                                          icon: Icon(
+                                                            Icons.edit,
+                                                            size:
+                                                                textScale * 20,
+                                                          ),
+                                                        ),
                                                         GestureDetector(
                                                           child: IconButton(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(0),
-                                                              icon: Icon(
-                                                                Icons.delete,
-                                                                size:
-                                                                    textScale *
-                                                                        14,
-                                                              ),
-                                                              onPressed: () {}),
+                                                            padding:
+                                                                const EdgeInsets.all(
+                                                                  0,
+                                                                ),
+                                                            icon: Icon(
+                                                              Icons.delete,
+                                                              size:
+                                                                  textScale *
+                                                                  14,
+                                                            ),
+                                                            onPressed: () {},
+                                                          ),
                                                           onDoubleTap: () {
                                                             showDialog(
                                                               context: context,
-                                                              builder:
-                                                                  (context) {
+                                                              builder: (context) {
                                                                 return AlertDialog(
                                                                   shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              2)),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                          2,
+                                                                        ),
+                                                                  ),
                                                                   title: const Text(
-                                                                      'Remover esse caminhão?'),
+                                                                    'Remover esse caminhão?',
+                                                                  ),
                                                                   content:
                                                                       const Text(
-                                                                          ''),
+                                                                        '',
+                                                                      ),
                                                                   actions: [
                                                                     ElevatedButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                          Navigator.of(context)
-                                                                              .pop();
-                                                                        },
-                                                                        style: ElevatedButton.styleFrom(
-                                                                            foregroundColor: Colors
-                                                                                .black54,
-                                                                            shape:
-                                                                                const RoundedRectangleBorder(),
-                                                                            backgroundColor: Colors
-                                                                                .grey.shade200),
-                                                                        child:
-                                                                            Text(
-                                                                          'NÂO',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontSize:
-                                                                                textScale * 12,
-                                                                          ),
-                                                                        )),
+                                                                      onPressed: () {
+                                                                        Navigator.of(
+                                                                          context,
+                                                                        ).pop();
+                                                                      },
+                                                                      style: ElevatedButton.styleFrom(
+                                                                        foregroundColor:
+                                                                            Colors.black54,
+                                                                        shape:
+                                                                            const RoundedRectangleBorder(),
+                                                                        backgroundColor: Colors
+                                                                            .grey
+                                                                            .shade200,
+                                                                      ),
+                                                                      child: Text(
+                                                                        'NÂO',
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                              textScale *
+                                                                              12,
+                                                                        ),
+                                                                      ),
+                                                                    ),
                                                                     ElevatedButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                          users.removeTruckList(
-                                                                              widget.user);
-                                                                          Navigator
-                                                                              .of(
-                                                                            context,
-                                                                          ).pop();
-                                                                        },
-                                                                        style: ElevatedButton.styleFrom(
-                                                                            foregroundColor: Colors
-                                                                                .black54,
-                                                                            shape:
-                                                                                const RoundedRectangleBorder(),
-                                                                            backgroundColor: Colors
-                                                                                .grey.shade200),
-                                                                        child:
-                                                                            Text(
-                                                                          'SIM',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontSize:
-                                                                                textScale * 12,
-                                                                          ),
-                                                                        )),
+                                                                      onPressed: () {
+                                                                        users.removeTruckList(
+                                                                          widget
+                                                                              .user,
+                                                                        );
+                                                                        Navigator.of(
+                                                                          context,
+                                                                        ).pop();
+                                                                      },
+                                                                      style: ElevatedButton.styleFrom(
+                                                                        foregroundColor:
+                                                                            Colors.black54,
+                                                                        shape:
+                                                                            const RoundedRectangleBorder(),
+                                                                        backgroundColor: Colors
+                                                                            .grey
+                                                                            .shade200,
+                                                                      ),
+                                                                      child: Text(
+                                                                        'SIM',
+                                                                        style: TextStyle(
+                                                                          fontSize:
+                                                                              textScale *
+                                                                              12,
+                                                                        ),
+                                                                      ),
+                                                                    ),
                                                                   ],
                                                                 );
                                                               },
@@ -562,7 +597,7 @@ class _ContainerAnimatedCustomPhoneState
                                               const SizedBox(),
                                               const SizedBox(),
                                             ],
-                                          )
+                                          ),
                                   ],
                                 ),
                               ),
@@ -570,7 +605,7 @@ class _ContainerAnimatedCustomPhoneState
                           ),
                         ),
                       )
-                    : const SizedBox()
+                    : const SizedBox(),
               ],
             ),
           ),

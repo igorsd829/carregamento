@@ -1,10 +1,5 @@
+import 'package:carregamento_conectado/models/user_plate_model.dart';
 import 'package:carregamento_conectado/providers/user_plate_provider.dart';
-import 'package:carregamento_conectado/components/add_expedition.dart';
-import 'package:carregamento_conectado/components/add_warnig_card.dart';
-import 'package:carregamento_conectado/components/add_warnig_card_ads_url.dart';
-
-import 'package:carregamento_conectado/utils/app_routs.dart';
-// import 'package:carregamento_conectado/utils/app_routs.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -30,858 +25,358 @@ class _DataTrucksAdmState extends State<DataTrucksAdm> {
   Color active = Colors.grey;
   Color disable = Colors.grey.shade200;
   bool adm = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Provider.of<Users>(context, listen: false).loadAllTrucks();
-    Provider.of<Users>(context, listen: false).loadStatus();
     Provider.of<Users>(context, listen: false).loadExpedition();
   }
 
   @override
   Widget build(BuildContext context) {
+    final Users users = Provider.of(context);
     double textScale = MediaQuery.of(context).textScaler.scale(1);
     bool isPortraitPhoneSize = MediaQuery.of(context).size.width < 900;
+    var larguraDaTela = MediaQuery.of(context).size.width;
+    var alturaDaTela = MediaQuery.of(context).size.height;
+    double widthScreen = MediaQuery.of(context).size.width;
+    bool isLandScape = MediaQuery.of(context).size.width > 900;
 
-    final Users users = Provider.of(
-      context,
-    );
+    var alturaCard = alturaDaTela / 16;
+    int coluns = 4;
+    if (users.listTrucksLoaded.length <= 15) {
+      coluns = 4;
+    } else if (users.listTrucksLoaded.length >= 30 &&
+        users.listTrucksLoaded.length <= 45) {
+      coluns = 4;
+    } else if (users.listTrucksLoaded.length >= 45 &&
+        users.listTrucksLoaded.length <= 60) {
+      coluns = 5;
+    } else if (users.listTrucksLoaded.length >= 60 &&
+        users.listTrucksLoaded.length <= 75) {
+      coluns = 6;
+    } else if (users.listTrucksLoaded.length >= 75 &&
+        users.listTrucksLoaded.length <= 90) {
+      coluns = 7;
+    } else if (users.listTrucksLoaded.length >= 90 &&
+        users.listTrucksLoaded.length <= 105) {
+      coluns = 8;
+    } else if (users.listTrucksLoaded.length >= 105 &&
+        users.listTrucksLoaded.length <= 120) {
+      coluns = 9;
+    } else if (users.listTrucksLoaded.length > 120) {
+      coluns = 11;
+    }
+    var larguraCard = larguraDaTela / coluns;
+    List<UserPlate> trucksLoaded = [];
+    users.listTrucksLoaded.forEach((key, value) {
+      trucksLoaded.add(value);
+    });
 
-    // double textScale = MediaQuery.of(context).textScaler.scale(1);
-    return Scaffold(
+    return SelectionArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey.shade400,
         appBar: AppBar(
-          backgroundColor: Colors.grey.shade200,
-        ),
-        backgroundColor: Colors.grey.shade200,
-        body: SingleChildScrollView(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          centerTitle: true,
+          backgroundColor: Colors.grey.shade100,
+          title: Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              SizedBox(
+                height: isPortraitPhoneSize ? 18 : 35,
+                child: Image.asset(
+                  'assets/images/supercal_login.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+              const Expanded(child: SizedBox()),
+              Row(
                 children: [
-                  SizedBox(
-                      height: isPortraitPhoneSize ? 85 : 100,
-                      child: Image.network(
-                          'https://firebasestorage.googleapis.com/v0/b/minha-autenticidade.appspot.com/o/SUPERCAL-1.png?alt=media&token=1ac53204-6297-436e-a762-950e30fa5873',
-                          fit: BoxFit.contain)),
                   Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          one
-                              ? Text(
-                                  'BOM DIA',
-                                  style: TextStyle(
-                                    fontSize: isPortraitPhoneSize ? 20 : 23,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              : const SizedBox(),
-                          two
-                              ? Text(
-                                  'BOA TARDE',
-                                  style: TextStyle(
-                                    fontSize: isPortraitPhoneSize ? 20 : 23,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              : const SizedBox(),
-                          three
-                              ? Text(
-                                  'BOA NOITE',
-                                  style: TextStyle(
-                                    fontSize: isPortraitPhoneSize ? 20 : 23,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                              : const SizedBox(),
-                        ],
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      'CAMINHÕES NA FILA: ${users.countTrucksOne+users.countTrucksTwo+users.countTrucksThree}\nCAMINHÕES CARREGADOS: ${users.countTrucksLoaded}\nDATA: ${DateFormat('dd/MM/y, HH:mm').format(
-                        DateTime.now(),
-                      )}h',
-                      style: TextStyle(
-                        fontSize: isPortraitPhoneSize ? 20 : 23,
-                        fontWeight: FontWeight.bold,
+                    padding: const EdgeInsets.symmetric(horizontal: 1),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        elevation: 15,
+                        foregroundColor: Colors.black54,
+                        shape: const LinearBorder(),
+                        backgroundColor: Colors.grey.shade200,
+                      ),
+                      child: Text(
+                        'TOTAL: ${users.countTrucksLoaded}º',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      children: [
-                        Center(
-                            child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'CARREGAMENTO: ',
-                              style: TextStyle(
-                                fontSize: isPortraitPhoneSize ? 20 : 23,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            users.statusOpen
-                                ? Stack(
-                                    children: <Widget>[
-                                      // Stroked text as border.
-
-                                      Text(
-                                        users.status.toUpperCase(),
-                                        style: TextStyle(
-                                            fontSize: isPortraitPhoneSize
-                                                ? textScale * 20
-                                                : textScale * 23,
-                                            foreground: Paint()
-                                              ..style = PaintingStyle.stroke
-                                              ..strokeWidth = 0.2
-                                              ..color = Colors.black),
-                                      ),
-                                      // Solid text as fill.
-                                      Text(
-                                        users.status.toUpperCase(),
-                                        style: TextStyle(
-                                          fontSize: isPortraitPhoneSize
-                                              ? textScale * 20
-                                              : textScale * 23,
-                                          color: Colors.greenAccent.shade400,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : const SizedBox(),
-                            users.statusStoped
-                                ? Stack(
-                                    children: <Widget>[
-                                      // Stroked text as border.
-
-                                      Text(
-                                        users.status.toUpperCase(),
-                                        style: TextStyle(
-                                            fontSize: isPortraitPhoneSize
-                                                ? textScale * 20
-                                                : textScale * 23,
-                                            foreground: Paint()
-                                              ..style = PaintingStyle.stroke
-                                              ..strokeWidth = 0.2
-                                              ..color = Colors.black),
-                                      ),
-                                      // Solid text as fill.
-                                      Text(
-                                        users.status.toUpperCase(),
-                                        style: TextStyle(
-                                          fontSize: textScale * 23,
-                                          color: Colors.yellow,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : const SizedBox(),
-                            users.statusClosed
-                                ? Stack(
-                                    children: <Widget>[
-                                      // Stroked text as border.
-
-                                      Text(
-                                        users.status.toUpperCase(),
-                                        style: TextStyle(
-                                            fontSize: isPortraitPhoneSize
-                                                ? textScale * 20
-                                                : textScale * 23,
-                                            foreground: Paint()
-                                              ..style = PaintingStyle.stroke
-                                              ..strokeWidth = 0.2
-                                              ..color = Colors.black),
-                                      ),
-                                      // Solid text as fill.
-                                      Text(
-                                        users.status.toUpperCase(),
-                                        style: TextStyle(
-                                          fontSize: isPortraitPhoneSize
-                                              ? textScale * 20
-                                              : textScale * 23,
-                                          color: Colors.redAccent,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : const SizedBox(),
-                          ],
-                        )),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'TURNO: ',
-                          style: TextStyle(
-                            fontSize: isPortraitPhoneSize ? 20 : 23,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                one = !one;
-                                two = false;
-                                three = false;
-                              });
-                            },
-                            style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.black87,
-                                shape: const RoundedRectangleBorder(),
-                                backgroundColor: one ? active : disable),
-                            child: Text(
-                              '1º',
-                              style: TextStyle(
-                                fontSize: isPortraitPhoneSize ? 15 : 20,
-                              ),
-                            )),
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                two = !two;
-                                one = false;
-                                three = false;
-                              });
-                            },
-                            style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.black87,
-                                shape: const RoundedRectangleBorder(),
-                                backgroundColor: two ? active : disable),
-                            child: Text(
-                              '2º',
-                              style: TextStyle(
-                                fontSize: isPortraitPhoneSize ? 15 : 20,
-                              ),
-                            )),
-                        ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                three = !three;
-                                two = false;
-                                one = false;
-                              });
-                            },
-                            style: ElevatedButton.styleFrom(
-                                foregroundColor: Colors.black87,
-                                shape: const RoundedRectangleBorder(),
-                                backgroundColor: three ? active : disable),
-                            child: Text(
-                              '3º',
-                              style: TextStyle(
-                                fontSize: isPortraitPhoneSize ? 15 : 20,
-                              ),
-                            )),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Center(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'EXPEDIDO: ',
-                          style: TextStyle(
-                            fontSize: isPortraitPhoneSize ? 20 : 23,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        users.expedition.isNotEmpty
-                            ? Text(
-                                '${users.expedition.toString().toUpperCase()}t',
-                                style: const TextStyle(
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            : const SizedBox(),
-                      ],
-                    )),
-                  ),
-                  adm
-                      ? Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ////////////////////////////////////// MÊS
-                            // Padding(
-                            //   padding:
-                            //       const EdgeInsets.symmetric(horizontal: 20),
-                            //   child: Center(
-                            //       child: Row(
-                            //     mainAxisAlignment: MainAxisAlignment.center,
-                            //     children: [
-                            //       const Text(
-                            //         'EXPEDIDO NO MÊS: ',
-                            //         style: TextStyle(
-                            //           fontSize: 23,
-                            //           fontWeight: FontWeight.bold,
-                            //         ),
-                            //       ),
-                            //       users.expedition.isNotEmpty
-                            //           ? Text(
-                            //               '${users.expedition.toString().toUpperCase()}t',
-                            //               style: const TextStyle(
-                            //                 fontSize: 23,
-                            //                 fontWeight: FontWeight.bold,
-                            //               ),
-                            //             )
-                            //           : const SizedBox(),
-                            //     ],
-                            //   )),
-                            // ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(
-                                'CAMINHÕES CARREGANDO: ${users.countTrucksLoading}',
-                                style: TextStyle(
-                                  fontSize: isPortraitPhoneSize ? 20 : 23,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Text(
-                                'CARREGADOS NO MÊS: ${users.countTrucksAllLoaded + users.countTrucksLoaded}',
-                                style: TextStyle(
-                                  fontSize: isPortraitPhoneSize ? 20 : 23,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'LIMPAR LISTA ATUAL',
-                                    style: TextStyle(
-                                      fontSize: isPortraitPhoneSize ? 20 : 23,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: Text(
-                                                'Deseja Limpar lista atual?',
-                                                style: TextStyle(
-                                                  fontSize: isPortraitPhoneSize
-                                                      ? 20
-                                                      : 23,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              content: const Text(''),
-                                              actions: [
-                                                ElevatedButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    style: ElevatedButton.styleFrom(
-                                                        foregroundColor:
-                                                            Colors.black54,
-                                                        shape:
-                                                            const RoundedRectangleBorder(),
-                                                        backgroundColor: Colors
-                                                            .grey.shade200),
-                                                    child: Text(
-                                                      'NÂO',
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            textScale * 12,
-                                                      ),
-                                                    )),
-                                                ElevatedButton(
-                                                    onPressed: () {
-                                                      // Provider.of<Users>(
-                                                      //         context,
-                                                      //         listen: false)
-                                                      //     .removeTruckLoadedList();
-                                                      Provider.of<Users>(
-                                                              context,
-                                                              listen: false)
-                                                          .clearExpedition();
-                                                      Navigator.of(
-                                                        context,
-                                                      ).pop();
-                                                    },
-                                                    style: ElevatedButton.styleFrom(
-                                                        foregroundColor:
-                                                            Colors.black54,
-                                                        shape:
-                                                            const RoundedRectangleBorder(),
-                                                        backgroundColor: Colors
-                                                            .grey.shade200),
-                                                    child: Text(
-                                                      'SIM',
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            textScale * 12,
-                                                      ),
-                                                    )),
-                                                // ElevatedButton(
-                                                //     onPressed: () {
-                                                //       Navigator.of(context).pop();
-                                                //     },
-                                                //     child: const Text('não')),
-                                                // ElevatedButton(
-                                                //     onPressed: () {
-                                                //       Provider.of<Users>(context,
-                                                //               listen: false)
-                                                //           .removeTruckLoadedList();
-                                                //       Navigator.of(
-                                                //         context,
-                                                //       ).pop();
-                                                //     },
-                                                //     child: const Text('sim'))
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                      icon: const Icon(Icons.delete)),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'LIMPAR LISTA DO MÊS',
-                                    style: TextStyle(
-                                      fontSize: isPortraitPhoneSize ? 20 : 23,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: const Text(
-                                                  'Deseja Limpar lista do mês?'),
-                                              content: const Text(''),
-                                              actions: [
-                                                ElevatedButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    style: ElevatedButton.styleFrom(
-                                                        foregroundColor:
-                                                            Colors.black54,
-                                                        shape:
-                                                            const RoundedRectangleBorder(),
-                                                        backgroundColor: Colors
-                                                            .grey.shade200),
-                                                    child: Text(
-                                                      'NÂO',
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            textScale * 12,
-                                                      ),
-                                                    )),
-                                                ElevatedButton(
-                                                    onPressed: () {
-                                                      Provider.of<Users>(
-                                                              context,
-                                                              listen: false)
-                                                          .removeTruckAllLoaded();
-                                                      Provider.of<Users>(
-                                                              context,
-                                                              listen: false)
-                                                          .clearExpedition();
-
-                                                      Navigator.of(
-                                                        context,
-                                                      ).pop();
-                                                    },
-                                                    style: ElevatedButton.styleFrom(
-                                                        foregroundColor:
-                                                            Colors.black54,
-                                                        shape:
-                                                            const RoundedRectangleBorder(),
-                                                        backgroundColor: Colors
-                                                            .grey.shade200),
-                                                    child: Text(
-                                                      'SIM',
-                                                      style: TextStyle(
-                                                        fontSize:
-                                                            textScale * 12,
-                                                      ),
-                                                    )),
-                                                // ElevatedButton(
-                                                //     onPressed: () {
-                                                //       Navigator.of(context).pop();
-                                                //     },
-                                                //     child: const Text('não')),
-                                                // ElevatedButton(
-                                                //     onPressed: () {
-                                                //       // users
-                                                //       //     .removeTruckAllLoaded();
-                                                //       Provider.of<Users>(context,
-                                                //               listen: false)
-                                                //           .removeTruckAllLoaded();
-
-                                                //       Navigator.of(
-                                                //         context,
-                                                //       ).pop();
-                                                //       // users.loadAllTrucks();
-                                                //     },
-                                                //     child: const Text('sim'))
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                      icon: const Icon(Icons.delete)),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: SizedBox(
-                                width: 295,
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushReplacementNamed(
-                                              AppRoutes.data_truks_loaded);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.black54,
-                                        shape: const RoundedRectangleBorder(),
-                                        backgroundColor: Colors.grey.shade200),
-                                    child: const Text(
-                                      'RELATÓRIO ATUAL',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                    )),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: SizedBox(
-                                width: 295,
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pushReplacementNamed(
-                                              AppRoutes.data_truks_all);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.black54,
-                                        shape: const RoundedRectangleBorder(),
-                                        backgroundColor: Colors.grey.shade200),
-                                    child: const Text(
-                                      'RELATÓRIO DO MÊS',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                    )),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: SizedBox(
-                                width: 295,
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        backgroundColor: Colors.grey.shade300,
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (context) {
-                                          return Padding(
-                                            padding: EdgeInsets.only(
-                                                bottom: MediaQuery.of(context)
-                                                    .viewInsets
-                                                    .bottom),
-                                            child: const SizedBox(
-                                              height: 400,
-                                              width: double.infinity,
-                                              child: SingleChildScrollView(
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 20,
-                                                      vertical: 10),
-                                                  child: Column(
-                                                    children: [
-                                                      AddWarnigCard(),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.black54,
-                                        shape: const RoundedRectangleBorder(),
-                                        backgroundColor: Colors.grey.shade200),
-                                    child: const Text(
-                                      'ADICIONAR AVISO',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                    )),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: SizedBox(
-                                width: 295,
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        backgroundColor: Colors.grey.shade300,
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (context) {
-                                          return Padding(
-                                            padding: EdgeInsets.only(
-                                                bottom: MediaQuery.of(context)
-                                                    .viewInsets
-                                                    .bottom),
-                                            child: const SizedBox(
-                                              height: 400,
-                                              width: double.infinity,
-                                              child: SingleChildScrollView(
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 20,
-                                                      vertical: 10),
-                                                  child: Column(
-                                                    children: [
-                                                      AddWarnigCardAds(),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.black54,
-                                        shape: const RoundedRectangleBorder(),
-                                        backgroundColor: Colors.grey.shade200),
-                                    child: const Text(
-                                      'ADICIONAR URL',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                    )),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: SizedBox(
-                                width: 295,
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        backgroundColor: Colors.grey.shade300,
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (context) {
-                                          return Padding(
-                                            padding: EdgeInsets.only(
-                                                bottom: MediaQuery.of(context)
-                                                    .viewInsets
-                                                    .bottom),
-                                            child: const SizedBox(
-                                              height: 400,
-                                              width: double.infinity,
-                                              child: SingleChildScrollView(
-                                                child: Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal: 20,
-                                                      vertical: 10),
-                                                  child: Column(
-                                                    children: [
-                                                      AddExpedition(),
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                        foregroundColor: Colors.black54,
-                                        shape: const RoundedRectangleBorder(),
-                                        backgroundColor: Colors.grey.shade200),
-                                    child: const Text(
-                                      'TOTAL EXPEDIDO',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                    )),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        users.setStatusOpen();
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          elevation: users.statusOpen ? 15 : 2,
-                                          foregroundColor: Colors.black54,
-                                          shape: const RoundedRectangleBorder(),
-                                          backgroundColor:
-                                              Colors.grey.shade200),
-                                      child: Text(
-                                        'LIBERADO',
-                                        style: TextStyle(
-                                          fontSize: textScale * 10.5,
-                                        ),
-                                      )),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        users.setStautsStoped();
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          elevation:
-                                              users.statusStoped ? 15 : 2,
-                                          foregroundColor: Colors.black54,
-                                          shape: const RoundedRectangleBorder(),
-                                          backgroundColor:
-                                              Colors.grey.shade200),
-                                      child: Text(
-                                        'PARADO',
-                                        style: TextStyle(
-                                          fontSize: textScale * 10.5,
-                                        ),
-                                      )),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        users.setStautsClosed();
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                          elevation:
-                                              users.statusClosed ? 15 : 2,
-                                          foregroundColor: Colors.black54,
-                                          shape: const RoundedRectangleBorder(),
-                                          backgroundColor:
-                                              Colors.grey.shade200),
-                                      child: Text(
-                                        'ENCERRADO',
-                                        style: TextStyle(
-                                          fontSize: textScale * 10.5,
-                                        ),
-                                      )),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: IconButton(
-                                  padding: const EdgeInsets.all(1),
-                                  onPressed: () {
-                                    users.StatusInite();
-                                  },
-                                  icon: Icon(
-                                    Icons.wifi_protected_setup_outlined,
-                                    size: 40,
-                                    color: Colors.grey.shade400,
-                                  )),
-                            ),
-                          ],
-                        )
-                      : const SizedBox(),
-                  adm
-                      ? Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  adm = !adm;
-                                });
-                              },
-                              icon: const Icon(
-                                Icons.keyboard_arrow_up,
-                                size: 40,
-                              )),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  adm = !adm;
-                                });
-                              },
-                              icon: const Icon(
-                                Icons.menu,
-                                size: 40,
-                              )),
-                        ),
                 ],
               ),
             ],
           ),
-        ));
+        ),
+        body: Stack(
+          children: [
+            Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: widthScreen * 0.20,
+                    child: Image.asset(
+                      'assets/images/supercal_login.png',
+
+                      fit: BoxFit.contain,
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            isLandScape
+                ? Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ListView(
+                      children: trucksLoaded.map((e) {
+                        int index = trucksLoaded.indexOf(e);
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(width: 1, color: Colors.black),
+                          ),
+                          height: 20,
+                          width: larguraCard,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 21,
+                                  width: 42,
+                                  decoration: BoxDecoration(
+                                    border: Border.symmetric(
+                                      vertical: BorderSide(
+                                        width: 1,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2),
+                                    child: Text(
+                                      '${index + 1}º',
+                                      style: TextStyle(
+                                        fontSize: textScale * 8,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 2),
+                                Text(
+                                  'PLACA: ${e.plate.substring(0, 3).toUpperCase()}-${e.plate.substring(3, 7).toUpperCase()}',
+                                  style: TextStyle(
+                                    fontSize: textScale * 8,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                const SizedBox(width: 2),
+                                e.name.length > 24
+                                    ? Text(
+                                        'MOTORISTA: ${e.name.substring(0, 24).toUpperCase()}...',
+                                        style: TextStyle(
+                                          fontSize: textScale * 8,
+                                          color: Colors.black87,
+                                        ),
+                                      )
+                                    : Text(
+                                        'MOTORISTA: ${e.name.toUpperCase()}',
+                                        style: TextStyle(
+                                          fontSize: textScale * 8,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                const SizedBox(width: 2),
+                                e.client.isNotEmpty
+                                    ? Text(
+                                        'CLIENTE: ${e.client.toUpperCase()}',
+                                        style: TextStyle(
+                                          fontSize: textScale * 8,
+                                          color: Colors.black87,
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                                const SizedBox(width: 2),
+                                Text(
+                                  // ignore: unnecessary_null_comparison
+                                  'CHEGADA: ${DateFormat('dd/MM/y, HH:mm').format(e.date)}',
+                                  style: TextStyle(
+                                    fontSize: textScale * 8,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                const SizedBox(width: 2),
+                                Text(
+                                  // ignore: unnecessary_null_comparison
+                                  e.enterTime == null
+                                      ? ''
+                                      : 'ENTRADA: ${DateFormat('dd/MM/y, HH:mm').format(e.enterTime!)}',
+                                  style: TextStyle(
+                                    fontSize: textScale * 8,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                const SizedBox(width: 2),
+                                Text(
+                                  // ignore: unnecessary_null_comparison
+                                  e.outTime == null
+                                      ? ''
+                                      : 'SAÍDA: ${DateFormat('dd/MM/y, HH:mm').format(e.outTime!)}',
+                                  style: TextStyle(
+                                    fontSize: textScale * 8,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+
+                        // ContainerAnimatedCustomloaded(
+                        //     isAdm: widget.isAdm,
+                        //     index: index,
+                        //     user: e,
+                        //     cardHeight: alturaCard,
+                        //     cardWidth: larguraCard);
+                      }).toList(),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: ListView(
+                      children: trucksLoaded.map((e) {
+                        int index = trucksLoaded.indexOf(e);
+                        return Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(width: 1, color: Colors.black),
+                          ),
+                          height: alturaCard + 20,
+                          width: larguraCard,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    // ? Text(
+                                    //     '${widget.user.name.substring(0, 15).toUpperCase()}...',
+                                    //     style: TextStyle(fontSize: textScale * 14))
+                                    // : Text('${widget.user.name.toUpperCase()}...',
+                                    //
+                                    //    style: TextStyle(fontSize: textScale * 14)),
+                                    Text(
+                                      '${index + 1}º',
+                                      style: TextStyle(
+                                        fontSize: textScale * 8,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Text(
+                                      'PLACA: ${e.plate.substring(0, 3).toUpperCase()}-${e.plate.substring(3, 7).toUpperCase()}',
+                                      style: TextStyle(
+                                        fontSize: textScale * 8,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 2),
+
+                                    const SizedBox(width: 2),
+                                    e.name.length > 24
+                                        ? Text(
+                                            'MOTORISTA: ${e.name.substring(0, 24).toUpperCase()}...',
+                                            style: TextStyle(
+                                              fontSize: textScale * 8,
+                                              color: Colors.black87,
+                                            ),
+                                          )
+                                        : Text(
+                                            'MOTORISTA: ${e.name.toUpperCase()}',
+                                            style: TextStyle(
+                                              fontSize: textScale * 8,
+                                              color: Colors.black87,
+                                            ),
+                                          ),
+                                    const SizedBox(width: 2),
+                                    e.client.isNotEmpty
+                                        ? Text(
+                                            'CLIENTE: ${e.client.toUpperCase()}',
+                                            style: TextStyle(
+                                              fontSize: textScale * 8,
+                                              color: Colors.black87,
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                    const Expanded(child: SizedBox()),
+                                    Text(
+                                      '${index + 1}/${users.countTrucksLoaded}',
+                                      style: TextStyle(
+                                        fontSize: textScale * 8,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      // ignore: unnecessary_null_comparison
+                                      'CHEGADA: ${DateFormat('dd/MM/y, HH:mm').format(e.date)}',
+                                      style: TextStyle(
+                                        fontSize: textScale * 8,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    Text(
+                                      // ignore: unnecessary_null_comparison
+                                      e.enterTime == null
+                                          ? ''
+                                          : 'ENTRADA: ${DateFormat('dd/MM/y, HH:mm').format(e.enterTime!)}',
+                                      style: TextStyle(
+                                        fontSize: textScale * 8,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    Text(
+                                      // ignore: unnecessary_null_comparison
+                                      e.outTime == null
+                                          ? ''
+                                          : 'SAÍDA: ${DateFormat('dd/MM/y, HH:mm').format(e.outTime!)}',
+                                      style: TextStyle(
+                                        fontSize: textScale * 8,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+          ],
+        ),
+        floatingActionButton: ElevatedButton(
+          onPressed: () {},
+          child: Text('DOWNLOAD', style: TextStyle(color: Colors.black)),
+        ),
+      ),
+    );
   }
 }

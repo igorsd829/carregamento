@@ -1,5 +1,4 @@
 import 'package:carregamento_conectado/components/add_user_bottom.dart';
-import 'package:carregamento_conectado/pages/help_page.dart';
 import 'package:carregamento_conectado/pages/queue_of_trucks.dart';
 import 'package:carregamento_conectado/pages/queue_of_trucks_loaded.dart';
 import 'package:carregamento_conectado/pages/queue_of_trucks_loading.dart';
@@ -61,6 +60,7 @@ class _HomePageState extends State<HomePage> {
 
     return SelectionArea(
       child: Scaffold(
+        backgroundColor: Colors.grey.shade400,
         drawer: logado
             ? Drawer(
                 child: Padding(
@@ -164,6 +164,9 @@ class _HomePageState extends State<HomePage> {
                               Navigator.of(
                                 context,
                               ).pushNamed(AppRoutes.data_truks_adm);
+                              // Navigator.of(context).pushReplacementNamed(
+                              //   AppRoutes.data_truks_loaded,
+                              // );
                             },
                             icon: Icon(
                               Icons.insert_chart_outlined_sharp,
@@ -334,7 +337,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
         appBar: AppBar(
-          backgroundColor: Colors.grey.shade400,
+          backgroundColor: Colors.grey.shade300,
           title: SingleChildScrollView(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -481,7 +484,7 @@ class _HomePageState extends State<HomePage> {
                                     size: 30,
                                     color: load
                                         ? Colors.red
-                                        : Colors.grey.shade300,
+                                        : Colors.grey.shade100,
                                   ),
                                 ),
                         ],
@@ -693,21 +696,12 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: widthScreen * 0.10,
+                    height: widthScreen * 0.20,
                     child: Image.asset(
                       'assets/images/supercal_login.png',
 
                       fit: BoxFit.contain,
-                      color: Colors.grey.withOpacity(0.8),
-                    ),
-                  ),
-                  SizedBox(
-                    height: widthScreen * 0.10,
-                    child: Image.asset(
-                      'assets/images/supercal_login.png',
-
-                      fit: BoxFit.contain,
-                      color: Colors.grey.withOpacity(0.8),
+                      color: Colors.grey.shade600,
                     ),
                   ),
                 ],
@@ -732,7 +726,7 @@ class _HomePageState extends State<HomePage> {
                 // ),
                 QueueOfTrucksLoading(isAdm: logado, load: load),
                 QueueOfTrucksLoaded(isAdm: logado, load: load),
-                const HelpPage(), //// aqui deveria ser ado adm
+                // const HelpPage(), //// aqui deveria ser ado adm
               ],
             ),
           ],

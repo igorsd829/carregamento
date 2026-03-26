@@ -116,41 +116,40 @@ class _HelpPageAdmState extends State<HelpPageAdm> {
                   ),
                   const Text('CALENDÁRIO'),
                 ],
-              ),Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.of(
-                                context,
-                              ).pushNamed(AppRoutes.data_truks_adm);
-                            },
-                            icon: Icon(
-                              Icons.insert_chart_outlined_sharp,
-                              size: 35,
-                              color: Colors.grey.shade500,
-                            ),
-                          ),
-                          const Text('RELATÓRIO'),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              Navigator.of(
-                                context,
-                              ).pushReplacementNamed(AppRoutes.help_page_adm);
-                            },
-                            icon: Icon(
-                              Icons.help_center_sharp,
-                              size: 35,
-                              color: Colors.grey.shade500,
-                            ),
-                          ),
-                          const Text('AJUDA'),
-                        ],
-                      ),
-                     
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AppRoutes.data_truks_adm);
+                    },
+                    icon: Icon(
+                      Icons.insert_chart_outlined_sharp,
+                      size: 35,
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
+                  const Text('RELATÓRIO'),
+                ],
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(
+                        context,
+                      ).pushReplacementNamed(AppRoutes.help_page_adm);
+                    },
+                    icon: Icon(
+                      Icons.help_center_sharp,
+                      size: 35,
+                      color: Colors.grey.shade500,
+                    ),
+                  ),
+                  const Text('AJUDA'),
+                ],
+              ),
+
               Row(
                 children: [
                   IconButton(
@@ -177,7 +176,7 @@ class _HelpPageAdmState extends State<HelpPageAdm> {
       ),
       appBar: AppBar(
         centerTitle: true,
-
+        backgroundColor: Colors.grey.shade100,
         title: Row(
           children: [
             Text('AJUDA', style: TextStyle(color: Colors.grey.shade600)),
@@ -405,7 +404,7 @@ class _HelpPageAdmState extends State<HelpPageAdm> {
                 : const SizedBox(),
           ],
         ),
-       
+
         actions: [],
       ),
       backgroundColor: Colors.white,
