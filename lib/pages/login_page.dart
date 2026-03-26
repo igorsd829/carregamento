@@ -120,48 +120,12 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Stack(
         children: [
-          // showWallpaper
-          //     ? SizedBox(
-          //         height: alturaDaTela - 10,
-          //         width: widthScreen,
-          //         child: Image.asset(
-          //           'assets/images/supercal.png',
-          //           fit: BoxFit.fill,
-          //           width: widthScreen,
-          //         ),
-          //       )
-          //     : Center(
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           children: [
-          //             SizedBox(
-          //               height: widthScreen * 0.10,
-          //               child: Image.asset(
-          //           'assets/images/supercal.png',
-          //                 fit: BoxFit.contain,
-          //                 color: Colors.grey.withOpacity(0.8),
-          //               ),
-          //             ),
-          //             SizedBox(
-          //               height: widthScreen * 0.10,
-          //               child:  Image.asset(
-          //           'assets/images/supercal.png',
-          //                 fit: BoxFit.contain,
-          //                 color: Colors.grey.withOpacity(0.8),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
           SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(
                   height: 100,
-                  child: Image.asset(
-                    'assets/images/supercal_login.png',
-                    
-                  ),
+                  child: Image.asset('assets/images/supercal_login.png'),
                 ),
                 Center(
                   child: Container(
@@ -225,7 +189,7 @@ class _LoginPageState extends State<LoginPage> {
                                                     context,
                                                   ).pushReplacementNamed(
                                                     AppRoutes.home,
-                                                    arguments: false
+                                                    arguments: false,
                                                   );
                                                 },
                                                 style: ElevatedButton.styleFrom(
@@ -278,7 +242,7 @@ class _LoginPageState extends State<LoginPage> {
                                                 ),
                                               ),
                                               const SizedBox(height: 10),
-                                              
+
                                               const SizedBox(height: 10),
                                               users.warning.isEmpty
                                                   ? const SizedBox()
@@ -326,14 +290,14 @@ class _LoginPageState extends State<LoginPage> {
                                           vertical: 10,
                                         ),
                                         child: Text(
-                                                DateFormat(
-                                                  ' dd/MM/y',
-                                                ).format(DateTime.now()),
-                                                style: TextStyle(
-                                                  fontSize: textScale * 10,
-                                                  color: Colors.black54,
-                                                ),
-                                              ),
+                                          DateFormat(
+                                            ' dd/MM/y',
+                                          ).format(DateTime.now()),
+                                          style: TextStyle(
+                                            fontSize: textScale * 10,
+                                            color: Colors.black54,
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   )
@@ -392,15 +356,13 @@ class _LoginPageState extends State<LoginPage> {
                                                     Colors.grey.shade200,
                                               ),
                                               onPressed: () {
-
                                                 /// define o cara como adm aqui
-                                                
 
                                                 Navigator.of(
                                                   context,
                                                 ).pushReplacementNamed(
                                                   AppRoutes.home,
-                                                  arguments: true
+                                                  arguments: true,
                                                 );
                                               },
                                               child: _cadastroUsuario
@@ -452,6 +414,20 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ],
+      ),
+
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          width: 150,
+          height: 150,
+          child: Center(
+            child: SizedBox(
+              height: 150,
+              child: Image.asset('assets/images/logo_unitins_2021.png'),
+            ),
+          ),
+        ),
       ),
     );
   }

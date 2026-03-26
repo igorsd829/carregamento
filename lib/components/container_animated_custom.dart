@@ -258,6 +258,21 @@ class _ContainerAnimatedCustomState extends State<ContainerAnimatedCustom> {
                             )
                           : const SizedBox(width: 0),
                       widget.isAdm
+                          ? GestureDetector(
+                              child: IconButton(
+                                padding: const EdgeInsets.all(0),
+                                icon: Icon(Icons.edit, size: textScale * 14),
+                                onPressed: () {},
+                              ),
+                              onDoubleTap: () {
+                                Navigator.of(context).pushNamed(
+                                  AppRoutes.user_form_new,
+                                  arguments: widget.user,
+                                );
+                              },
+                            )
+                          : const SizedBox(width: 0),
+                      widget.isAdm
                           ? Row(
                               children: [
                                 widget.user.loading

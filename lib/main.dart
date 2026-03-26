@@ -8,6 +8,7 @@ import 'package:carregamento_conectado/pages/login_page.dart';
 import 'package:carregamento_conectado/pages/queue_of_trucks_loaded.dart';
 import 'package:carregamento_conectado/pages/queue_of_trucks_loaded_all.dart';
 import 'package:carregamento_conectado/pages/queue_of_trucks_offline.dart';
+import 'package:carregamento_conectado/pages/register_user.dart';
 import 'package:carregamento_conectado/pages/trucks_scheduled_page.dart';
 import 'package:carregamento_conectado/pages/user_form_new.dart';
 import 'package:carregamento_conectado/pages/user_form_view.dart';
@@ -51,8 +52,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.help_page_adm: (context) => const HelpPageAdm(),
           AppRoutes.data_truks: (context) => const DataTrucks(),
           AppRoutes.data_truks_adm: (context) => const DataTrucksAdm(),
-          // AppRoutes.list_offline_admin: (context) =>
-          //     const QueueOfTrucksOfflineAdmin(isAdm: true, load: false),
+          AppRoutes.register_page: (context) => const RegisterPage(),
           AppRoutes.list_offline: (context) =>
               const QueueOfTrucksOffline(isAdm: false, load: false),
           AppRoutes.data_truks_loaded: (context) =>

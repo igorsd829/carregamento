@@ -39,7 +39,7 @@ class _ContainerAnimatedCustomPhoneState
   bool found = false;
   bool sending = false;
 
-  Color statusCard = Colors.blue;
+  Color statusCard = Colors.white;
   Color colorTruck = Colors.grey.shade300;
   bool showColorTruck = true;
   Color colorBorderCardTruck = Colors.transparent;
@@ -54,7 +54,7 @@ class _ContainerAnimatedCustomPhoneState
     } else if (widget.user.notFound) {
       statusCard = Colors.redAccent;
     } else {
-      statusCard = Colors.grey.shade400.withOpacity(0.7);
+      statusCard = Colors.white;
     }
 
     if (widget.user.colorTruck == 'black') {

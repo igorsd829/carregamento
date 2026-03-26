@@ -12,4 +12,5 @@ class AppRoutes {
   static const list_offline = '/list-offline';
   static const list_offline_admin = '/list-offline-admin';
   static const trucks_scheduled = '/trucks-scheduled';
+  static const register_page = '/register-page';
 }

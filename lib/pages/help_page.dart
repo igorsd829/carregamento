@@ -1,4 +1,3 @@
-import 'package:carregamento_conectado/pages/home_page_view.dart';
 import 'package:carregamento_conectado/providers/user_plate_provider.dart';
 import 'package:carregamento_conectado/utils/app_routs.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +14,6 @@ class HelpPage extends StatefulWidget {
 class _HelpPageState extends State<HelpPage> {
   @override
   Widget build(BuildContext context) {
-    int indexWindow = 0;
-    SampleItem? selectedItem;
     double textScale = MediaQuery.of(context).textScaler.scale(1);
     double widthScreen = MediaQuery.of(context).size.width;
     bool isDeskTop = widthScreen > 600;
@@ -32,91 +29,6 @@ class _HelpPageState extends State<HelpPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 50),
-              Row(
-                children: [
-                  Center(
-                    child: Center(
-                      child: PopupMenuButton<SampleItem>(
-                        icon: Icon(
-                          Icons.date_range_outlined,
-                          color: Colors.grey.shade500,
-                        ),
-                        color: Colors.white,
-                        iconSize: 30,
-                        initialValue: selectedItem,
-                        onSelected: (SampleItem item) {
-                          setState(() {
-                            selectedItem = item;
-                            if (selectedItem == SampleItem.itemThree) {
-                              indexWindow = 2;
-                              users.indexWindowUpdate(indexWindow);
-                              Navigator.of(context).pop();
-                            } else if (selectedItem == SampleItem.itemTwo) {
-                              indexWindow = 1;
-                              users.indexWindowUpdate(indexWindow);
-                              Navigator.of(context).pop();
-                            } else {
-                              indexWindow = 0;
-                              users.indexWindowUpdate(indexWindow);
-                              Navigator.of(context).pop();
-                            }
-                          });
-                        },
-                        itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
-                          PopupMenuItem<SampleItem>(
-                            onTap: () {},
-                            value: SampleItem.itemOne,
-                            child: Text(
-                              '${DateFormat('dd/MM/y').format(DateTime.now())} : ${users.countTrucksOne} ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: indexWindow == 0
-                                    ? Colors.red
-                                    : Colors.grey.shade700,
-                              ),
-                            ),
-                          ),
-                          PopupMenuItem<SampleItem>(
-                            value: SampleItem.itemTwo,
-                            onTap: () {
-                              setState(() {
-                                indexWindow = 1;
-                              });
-                            },
-                            child: Text(
-                              '${DateFormat('dd/MM/y').format(DateTime.now().add(const Duration(days: 1)))} : ${users.countTrucksTwo}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: indexWindow == 1
-                                    ? Colors.red
-                                    : Colors.grey.shade700,
-                              ),
-                            ),
-                          ),
-                          PopupMenuItem<SampleItem>(
-                            value: SampleItem.itemThree,
-                            onTap: () {
-                              setState(() {
-                                indexWindow = 2;
-                              });
-                            },
-                            child: Text(
-                              '${DateFormat('dd/MM/y').format(DateTime.now().add(const Duration(days: 2)))} : ${users.countTrucksThree}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: indexWindow == 2
-                                    ? Colors.red
-                                    : Colors.grey.shade700,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Text('CALENDÁRIO'),
-                ],
-              ),
               Row(
                 children: [
                   IconButton(

@@ -50,8 +50,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    SampleItem? selectedItem;
-
     bool isPortraitPhoneSize = MediaQuery.of(context).size.width < 900;
     bool isLandScape = MediaQuery.of(context).size.width > 900;
     double textScale = MediaQuery.of(context).textScaler.scale(1);
@@ -71,102 +69,11 @@ class _HomePageState extends State<HomePage> {
                       const SizedBox(height: 50),
                       Row(
                         children: [
-                          Center(
-                            child: Center(
-                              child: PopupMenuButton<SampleItem>(
-                                icon: Icon(
-                                  Icons.date_range_outlined,
-                                  color: Colors.grey.shade500,
-                                ),
-                                color: Colors.white,
-                                iconSize: 30,
-                                initialValue: selectedItem,
-                                onSelected: (SampleItem item) {
-                                  setState(() {
-                                    selectedItem = item;
-                                    if (selectedItem == SampleItem.itemThree) {
-                                      indexWindow = 2;
-                                      users.indexWindowUpdate(indexWindow);
-                                      Navigator.of(context).pop();
-                                    } else if (selectedItem ==
-                                        SampleItem.itemTwo) {
-                                      indexWindow = 1;
-                                      users.indexWindowUpdate(indexWindow);
-                                      Navigator.of(context).pop();
-                                    } else {
-                                      indexWindow = 0;
-                                      users.indexWindowUpdate(indexWindow);
-                                      Navigator.of(context).pop();
-                                    }
-                                  });
-                                },
-                                itemBuilder: (BuildContext context) =>
-                                    <PopupMenuEntry<SampleItem>>[
-                                      PopupMenuItem<SampleItem>(
-                                        onTap: () {},
-                                        value: SampleItem.itemOne,
-                                        child: Text(
-                                          '${DateFormat('dd/MM/y').format(DateTime.now())} : ${users.countTrucksOne}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: indexWindow == 0
-                                                ? Colors.red
-                                                : Colors.grey.shade700,
-                                          ),
-                                        ),
-                                      ),
-                                      PopupMenuItem<SampleItem>(
-                                        value: SampleItem.itemTwo,
-                                        onTap: () {
-                                          setState(() {
-                                            indexWindow = 1;
-                                          });
-                                        },
-                                        child: Text(
-                                          '${DateFormat('dd/MM/y').format(DateTime.now().add(const Duration(days: 1)))} : ${users.countTrucksTwo}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: indexWindow == 1
-                                                ? Colors.red
-                                                : Colors.grey.shade700,
-                                          ),
-                                        ),
-                                      ),
-                                      PopupMenuItem<SampleItem>(
-                                        value: SampleItem.itemThree,
-                                        onTap: () {
-                                          setState(() {
-                                            indexWindow = 2;
-                                          });
-                                        },
-                                        child: Text(
-                                          '${DateFormat('dd/MM/y').format(DateTime.now().add(const Duration(days: 2)))} : ${users.countTrucksThree}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: indexWindow == 2
-                                                ? Colors.red
-                                                : Colors.grey.shade700,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                              ),
-                            ),
-                          ),
-                          const Text('CALENDÁRIO'),
-                        ],
-                      ),
-
-                      Row(
-                        children: [
                           IconButton(
                             onPressed: () {
                               Navigator.of(
                                 context,
                               ).pushNamed(AppRoutes.data_truks_adm);
-                              // Navigator.of(context).pushReplacementNamed(
-                              //   AppRoutes.data_truks_loaded,
-                              // );
                             },
                             icon: Icon(
                               Icons.insert_chart_outlined_sharp,
@@ -200,6 +107,23 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {
                               Navigator.of(
                                 context,
+                              ).pushNamed(AppRoutes.register_page);
+                            },
+                            icon: Icon(
+                              Icons.person_add_alt,
+                              size: 35,
+                              color: Colors.grey.shade500,
+                            ),
+                          ),
+                          const Text('CADASTRAR'),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(
+                                context,
                               ).pushReplacementNamed(AppRoutes.login_page);
                               users.indexOne = true;
                               users.indexTwo = false;
@@ -225,93 +149,6 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 50),
-                      Row(
-                        children: [
-                          Center(
-                            child: Center(
-                              child: PopupMenuButton<SampleItem>(
-                                icon: Icon(
-                                  Icons.date_range_outlined,
-                                  color: Colors.grey.shade500,
-                                ),
-                                color: Colors.white,
-                                iconSize: 30,
-                                initialValue: selectedItem,
-                                onSelected: (SampleItem item) {
-                                  setState(() {
-                                    selectedItem = item;
-                                    if (selectedItem == SampleItem.itemThree) {
-                                      indexWindow = 2;
-                                      users.indexWindowUpdate(indexWindow);
-                                      Navigator.of(context).pop();
-                                    } else if (selectedItem ==
-                                        SampleItem.itemTwo) {
-                                      indexWindow = 1;
-                                      users.indexWindowUpdate(indexWindow);
-                                      Navigator.of(context).pop();
-                                    } else {
-                                      indexWindow = 0;
-                                      users.indexWindowUpdate(indexWindow);
-                                      Navigator.of(context).pop();
-                                    }
-                                  });
-                                },
-                                itemBuilder: (BuildContext context) =>
-                                    <PopupMenuEntry<SampleItem>>[
-                                      PopupMenuItem<SampleItem>(
-                                        onTap: () {},
-                                        value: SampleItem.itemOne,
-                                        child: Text(
-                                          '${DateFormat('dd/MM/y').format(DateTime.now())} : ${users.countTrucksOne} ',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: indexWindow == 0
-                                                ? Colors.red
-                                                : Colors.grey.shade700,
-                                          ),
-                                        ),
-                                      ),
-                                      PopupMenuItem<SampleItem>(
-                                        value: SampleItem.itemTwo,
-                                        onTap: () {
-                                          setState(() {
-                                            indexWindow = 1;
-                                          });
-                                        },
-                                        child: Text(
-                                          '${DateFormat('dd/MM/y').format(DateTime.now().add(const Duration(days: 1)))} : ${users.countTrucksTwo}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: indexWindow == 1
-                                                ? Colors.red
-                                                : Colors.grey.shade700,
-                                          ),
-                                        ),
-                                      ),
-                                      PopupMenuItem<SampleItem>(
-                                        value: SampleItem.itemThree,
-                                        onTap: () {
-                                          setState(() {
-                                            indexWindow = 2;
-                                          });
-                                        },
-                                        child: Text(
-                                          '${DateFormat('dd/MM/y').format(DateTime.now().add(const Duration(days: 2)))} : ${users.countTrucksThree}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: indexWindow == 2
-                                                ? Colors.red
-                                                : Colors.grey.shade700,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                              ),
-                            ),
-                          ),
-                          const Text('CALENDÁRIO'),
-                        ],
-                      ),
                       Row(
                         children: [
                           IconButton(
