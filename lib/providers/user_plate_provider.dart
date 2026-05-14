@@ -25,123 +25,20 @@ class Users with ChangeNotifier {
       return;
     }
   }
-  final indexImage = Random().nextInt(12);
-  // var baseUrl = 'https://fila-supercal-default-rtdb.firebaseio.com';
+ 
   Map<String, UserPlate> listNewMockUrl = {};
 
   Map<String, UserPlate> listNew = {
-    '123': UserPlate(
-      date: DateTime.now(),
-      outTime: DateTime.now(),
-      enterTime: DateTime.now(),
-      plate: 'qwe1212',
-      autorized: false,
-      brandTruck: '',
-      id: '123',
-      colorTruck: 'blue',
-      name: 'Igor',
-    ),
-    '234': UserPlate(
-      date: DateTime.now(),
-      outTime: DateTime.now(),
-      enterTime: DateTime.now(),
-      plate: 'qwe1212',
-      autorized: false,
-      brandTruck: '',
-      id: '234',
-      colorTruck: 'pink',
-      name: 'Amanda',
-    ),
-    '345': UserPlate(
-      date: DateTime.now(),
-      outTime: DateTime.now(),
-      enterTime: DateTime.now(),
-      plate: 'qwe1212',
-      autorized: false,
-      brandTruck: '',
-      id: '345',
-      colorTruck: 'green',
-      name: 'Flávio',
-    ),
+  
   };
   Map<String, UserPlate> listNewTwo = {};
   Map<String, UserPlate> listNewThree = {};
 
   Map<String, UserPlate> listTrucksLoading = {
-    '456': UserPlate(
-      date: DateTime.now(),
-      outTime: DateTime.now(),
-      enterTime: DateTime.now(),
-      plate: 'qwe1212',
-      autorized: false,
-      brandTruck: '',
-      id: '456',
-      colorTruck: 'blue',
-      name: 'Igor',
-      loading: true,
-    ),
-    '567': UserPlate(
-      date: DateTime.now(),
-      outTime: DateTime.now(),
-      enterTime: DateTime.now(),
-      plate: 'qwe1212',
-      autorized: false,
-      brandTruck: '',
-      id: '567',
-      colorTruck: 'pink',
-      name: 'Amanda',
-      loading: true,
-    ),
-    '678': UserPlate(
-      date: DateTime.now(),
-      outTime: DateTime.now(),
-      enterTime: DateTime.now(),
-      plate: 'qwe1212',
-      autorized: false,
-      brandTruck: '',
-      id: '678',
-      colorTruck: 'green',
-      name: 'Flávio',
-      loading: true,
-    ),
+   
   };
   Map<String, UserPlate> listTrucksLoaded = {
-    '789': UserPlate(
-      date: DateTime.now(),
-      outTime: DateTime.now(),
-      enterTime: DateTime.now(),
-      plate: 'qwe1212',
-      autorized: false,
-      brandTruck: '',
-      id: '789',
-      colorTruck: 'blue',
-      name: 'Igor',
-      loaded: true,
-    ),
-    '101112': UserPlate(
-      date: DateTime.now(),
-      outTime: DateTime.now(),
-      enterTime: DateTime.now(),
-      plate: 'qwe1212',
-      autorized: false,
-      brandTruck: '',
-      id: '101112',
-      colorTruck: 'pink',
-      name: 'Amanda',
-      loaded: true,
-    ),
-    '111213': UserPlate(
-      date: DateTime.now(),
-      outTime: DateTime.now(),
-      enterTime: DateTime.now(),
-      plate: 'qwe1212',
-      autorized: false,
-      brandTruck: '',
-      id: '111213',
-      colorTruck: 'green',
-      name: 'Flávio',
-      loaded: true,
-    ),
+    
   };
   Map<String, UserPlate> listTrucksAllLoaded = {};
   Map<String, UserPlate> listTrucksOffline = {};
