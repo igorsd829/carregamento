@@ -1,4 +1,5 @@
 class AppRoutes {
+   static const init = '/init';
   static const home = '/home';
   static const login_page = '/login';
   static const user_form_new = '/user-form-new';
@@ -13,4 +14,5 @@ class AppRoutes {
   static const list_offline_admin = '/list-offline-admin';
   static const trucks_scheduled = '/trucks-scheduled';
   static const register_page = '/register-page';
+  static const email_verification_page = '/email-verification-page';
 }

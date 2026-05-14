@@ -7,6 +7,7 @@ import 'package:carregamento_conectado/utils/app_routs.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 enum SampleItem { itemOne, itemTwo, itemThree }
 
@@ -20,6 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
   int indexBottomNavigatorBar = 0;
+  FirebaseAuth auth = FirebaseAuth.instance; 
 
   bool logado = false;
   double elevatedListButon = 15;
@@ -30,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    Provider.of<Users>(context, listen: false).recuperarDadosUsuarioLogado();
     Provider.of<Users>(context, listen: false).showAlertToChauffeur(context);
   }
 
@@ -122,6 +125,8 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           IconButton(
                             onPressed: () {
+                               users.clearLists();
+                              auth.signOut();
                               Navigator.of(
                                 context,
                               ).pushReplacementNamed(AppRoutes.login_page);

@@ -16,8 +16,14 @@ import 'package:carregamento_conectado/providers/user_plate_provider.dart';
 import 'package:carregamento_conectado/utils/app_routs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:carregamento_conectado/firebase_options.dart';
+import 'package:carregamento_conectado/pages/verification_page_view.dart';
+import 'package:carregamento_conectado/pages/init_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -42,8 +48,9 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
           useMaterial3: true,
         ),
-        initialRoute: AppRoutes.login_page,
+        initialRoute: AppRoutes.init,
         routes: {
+          AppRoutes.init: (context) => const InitPage(),
           AppRoutes.home: (context) => const HomePage(),
           AppRoutes.login_page: (context) => const LoginPage(),
           AppRoutes.user_form_new: (context) => const UserFormNew(),
@@ -61,6 +68,8 @@ class MyApp extends StatelessWidget {
               const QueueOfTrucksLoadedAll(isAdm: true),
           AppRoutes.trucks_scheduled: (context) =>
               const TrucksScheduled(isAdm: true),
+              AppRoutes.email_verification_page: (context) =>
+              const EmailVerificationPage(),
         },
       ),
     );

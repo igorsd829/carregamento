@@ -2,8 +2,29 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../models/user_plate_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Users with ChangeNotifier {
+   bool isUserAdm = false;
+  bool admMaster = false;
+  bool authorized = false;
+  String setorUarioLogado = '';
+  final indexImage = Random().nextInt(12);
+  late String idUsuarioLogado;
+  late String nameUarioLogado;
+  late String unidadeUser = '';
+  late int setorUserLog;
+  String setorUserAdm = '';
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  void recuperarDadosUsuarioLogado() {
+    User? usuarioAtual = auth.currentUser;
+    if (usuarioAtual != null) {
+      idUsuarioLogado = usuarioAtual.uid.toString();
+    } else {
+      return;
+    }
+  }
   final indexImage = Random().nextInt(12);
   // var baseUrl = 'https://fila-supercal-default-rtdb.firebaseio.com';
   Map<String, UserPlate> listNewMockUrl = {};
@@ -171,6 +192,14 @@ class Users with ChangeNotifier {
   }
 
   void clearLists() {
+    isUserAdm = false;
+    admMaster = false;
+    authorized = false;
+    idUsuarioLogado = '';
+    nameUarioLogado = '';
+    unidadeUser = '';
+    setorUarioLogado = '';
+    setorUserAdm = '';
     listNew = {};
     listNewTwo = {};
     listNewThree = {};
