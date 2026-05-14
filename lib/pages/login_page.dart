@@ -404,7 +404,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-            ),
+            ),Positioned(
+            bottom: 10,
+            right: 10,
+            child: SizedBox(
+              width: 200,
+              height: 200,
+              child: Image.asset('assets/images/logo_unitins_2021.png')))
           ],
         ),
       ),
