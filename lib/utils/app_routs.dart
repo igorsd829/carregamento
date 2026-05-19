@@ -15,4 +15,6 @@ class AppRoutes {
   static const trucks_scheduled = '/trucks-scheduled';
   static const register_page = '/register-page';
   static const email_verification_page = '/email-verification-page';
+  static const email_verification_page_adm = '/email-verification-page-adm';
+
 }

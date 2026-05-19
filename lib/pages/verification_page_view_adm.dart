@@ -5,14 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EmailVerificationPage extends StatefulWidget {
-  const EmailVerificationPage({Key? key}) : super(key: key);
+class EmailVerificationPageAdm extends StatefulWidget {
+  const EmailVerificationPageAdm({Key? key}) : super(key: key);
 
   @override
-  _EmailVerificationPageState createState() => _EmailVerificationPageState();
+  _EmailVerificationPageAdmState createState() => _EmailVerificationPageAdmState();
 }
 
-class _EmailVerificationPageState extends State<EmailVerificationPage> {
+class _EmailVerificationPageAdmState extends State<EmailVerificationPageAdm> {
   bool loading = true;
   Timer? _timer;
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -80,20 +80,20 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                               children: [
                                 TextSpan(
                                   text:
-                                      'Um e-mail de confirmação foi enviado para o endereço eletrônico ',
+                                      'Um e-mail de confirmação foi enviado para o endereço eletrônico registrado ',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w300,
                                     color: Colors.grey.shade800,
                                   ),
                                 ),
-                                TextSpan(
-                                  text: _auth.currentUser!.email,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors
-                                        .blue.shade800, // Mudar a cor para azul
-                                  ),
-                                ),
+                                // TextSpan(
+                                //   text: _auth.currentUser!.email, ///////////// arguments
+                                //   style: TextStyle(
+                                //     fontWeight: FontWeight.w300,
+                                //     color: Colors
+                                //         .blue.shade800, // Mudar a cor para azul
+                                //   ),
+                                // ),
                                 TextSpan(
                                   text:
                                       '. Por favor, peça para que o usuário cadastrado verifique a caixa de entrada ou spam e clique no link de confirmação para ativar a nova conta, em seguida peça que ele faça login.',

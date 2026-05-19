@@ -12,6 +12,7 @@ import 'package:carregamento_conectado/pages/register_user.dart';
 import 'package:carregamento_conectado/pages/trucks_scheduled_page.dart';
 import 'package:carregamento_conectado/pages/user_form_new.dart';
 import 'package:carregamento_conectado/pages/user_form_view.dart';
+import 'package:carregamento_conectado/pages/verification_page_view_ADm.dart';
 import 'package:carregamento_conectado/providers/user_plate_provider.dart';
 import 'package:carregamento_conectado/utils/app_routs.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +71,8 @@ class MyApp extends StatelessWidget {
               const TrucksScheduled(isAdm: true),
               AppRoutes.email_verification_page: (context) =>
               const EmailVerificationPage(),
+              AppRoutes.email_verification_page_adm: (context) =>
+              const EmailVerificationPageAdm(),
         },
       ),
     );
