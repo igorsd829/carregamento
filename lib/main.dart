@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:carregamento_conectado/pages/add_ad_view.dart';
 import 'package:carregamento_conectado/pages/data_trucks.dart';
 import 'package:carregamento_conectado/pages/data_trucks_adm.dart';
 import 'package:carregamento_conectado/pages/help_page.dart';
@@ -13,6 +14,7 @@ import 'package:carregamento_conectado/pages/trucks_scheduled_page.dart';
 import 'package:carregamento_conectado/pages/user_form_new.dart';
 import 'package:carregamento_conectado/pages/user_form_view.dart';
 import 'package:carregamento_conectado/pages/verification_page_view_ADm.dart';
+import 'package:carregamento_conectado/providers/ads_provider.dart';
 import 'package:carregamento_conectado/providers/user_plate_provider.dart';
 import 'package:carregamento_conectado/utils/app_routs.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => Users())],
+      providers: [ChangeNotifierProvider(create: (_) => Users()),
+      ChangeNotifierProvider(create: (_) => ProviderAdsItem())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         scrollBehavior: const MaterialScrollBehavior().copyWith(
@@ -52,6 +55,7 @@ class MyApp extends StatelessWidget {
         initialRoute: AppRoutes.init,
         routes: {
           AppRoutes.init: (context) => const InitPage(),
+          AppRoutes.add_ad: (context) => const AddAds(),
           AppRoutes.home: (context) => const HomePage(),
           AppRoutes.login_page: (context) => const LoginPage(),
           AppRoutes.user_form_new: (context) => const UserFormNew(),

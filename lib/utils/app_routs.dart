@@ -1,5 +1,7 @@
 class AppRoutes {
    static const init = '/init';
+   static const add_ad = '/add-ad';
+
   static const home = '/home';
   static const login_page = '/login';
   static const user_form_new = '/user-form-new';

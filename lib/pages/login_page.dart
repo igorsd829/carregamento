@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:carregamento_conectado/providers/ads_provider.dart';
 import 'package:carregamento_conectado/providers/user_plate_provider.dart';
 import 'package:carregamento_conectado/utils/app_routs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +14,10 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 class _LoginPageState extends State<LoginPage> {
+  void initState() {
+    super.initState();
+    Provider.of<ProviderAdsItem>(context, listen: false).getPromptImages();
+  }
   bool loading = false;
 
 
@@ -136,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
         setState(() => loading = false);
 
         if (auth.user!.emailVerified) {
-          Navigator.of(context).pushReplacementNamed(AppRoutes.home, arguments: true);
+          Navigator.of(context).pushReplacementNamed(AppRoutes.home, ); //arguments: true
         
         } else {
           auth.user?.sendEmailVerification();

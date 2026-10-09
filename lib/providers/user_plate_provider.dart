@@ -1,11 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '../models/user_plate_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Users with ChangeNotifier {
+  var baseUrl = 'https://projeto-extensionista-28134-default-rtdb.firebaseio.com';
    bool isUserAdm = false;
+   bool logado = false;
+
   bool admMaster = false;
   bool authorized = false;
   String setorUarioLogado = '';
@@ -21,6 +27,8 @@ class Users with ChangeNotifier {
     User? usuarioAtual = auth.currentUser;
     if (usuarioAtual != null) {
       idUsuarioLogado = usuarioAtual.uid.toString();
+      logado = true;
+      notifyListeners();
     } else {
       return;
     }
@@ -460,50 +468,126 @@ class Users with ChangeNotifier {
     }
     return;
   }
-
+String adSupercal =
+      'https://firebasestorage.googleapis.com/v0/b/minha-autenticidade.appspot.com/o/Imagem%20do%20WhatsApp%20de%202024-05-18%20%C3%A0(s)%2008.48.29_8f51f0a0.jpg?alt=media&token=58a80f49-8abd-4f61-8250-8d28eccf03c6';
   //////////////////////// ADD AVISO IMAGEM URL //////////////////////////////////////////
-  void showAlertToChauffeur(BuildContext context) {
+  void showAlertToChauffeur(
+    BuildContext context, String adSupercal,
+  ) {
     {
       Future.delayed(Duration(milliseconds: 100)).then((_) {
         showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Column(
-                children: [
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          'assets/images/logo_unitins_2021.png',
-                          width: 500,
-                        ),
+            context: context,
+            builder: (BuildContext context) {
+              return SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    // Container(
+                    //   child: Padding(
+                    //       padding: const EdgeInsets.all(8.0),
+                    //       child: ClipRRect(
+                    //         borderRadius: BorderRadius.circular(20),
+                    //         child: Image.network(
+                    //           adSupercal,
+                    //           width: 400,
+                    //         ),
+                    //       )),
+                    // ),
+                    ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: Opacity(
+                      opacity:  0.9,
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: adSupercal,
+                        placeholder:
+                            (context, url) => SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: Center(child: CircularProgressIndicator()),
+                            ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.black54,
-                      // shape: const RoundedRectangleBorder(),
-                      backgroundColor: Colors.grey.shade200,
-                    ),
-                    child: const Text(
-                      'ENTENDI',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(
+                            context,
+                          ).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.black54,
+                            // shape: const RoundedRectangleBorder(),
+                            backgroundColor: Colors.grey.shade200),
+                        child: const Text(
+                          'ENTENDI',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ))
+                  ],
+                ),
+              );
+            });
       });
     }
   }
+
+
+  //////////////////////// ADD AVISO IMAGEM URL //////////////////////////////////////////
+  
+
+  void loadAdSupercal() async {
+    await http.get(Uri.parse('$baseUrl/adsupercal.json')).then((response) {
+      Map<String, dynamic> data = jsonDecode(response.body);
+      if (data['adsupercal'] == '') {
+        adSupercal =
+            'https://firebasestorage.googleapis.com/v0/b/minha-autenticidade.appspot.com/o/Imagem%20do%20WhatsApp%20de%202024-05-18%20%C3%A0(s)%2008.48.29_8f51f0a0.jpg?alt=media&token=58a80f49-8abd-4f61-8250-8d28eccf03c6';
+        return;
+      } else {
+        adSupercal = data['adsupercal'];
+        notifyListeners();
+      }
+    });
+  }
+
+  void adsInit() {
+    http
+        .put(Uri.parse('$baseUrl/adsupercal.json'),
+            body: jsonEncode({
+              'adsupercal':
+                  'https://firebasestorage.googleapis.com/v0/b/minha-autenticidade.appspot.com/o/Imagem%20do%20WhatsApp%20de%202024-05-18%20%C3%A0(s)%2008.48.29_8f51f0a0.jpg?alt=media&token=58a80f49-8abd-4f61-8250-8d28eccf03c6',
+            }))
+        .then((value) {
+      loadExpedition();
+      notifyListeners();
+    });
+  }
+
+  void addNewAds(String ads) {
+    http
+        .put(Uri.parse('$baseUrl/adsupercal.json'),
+            body: jsonEncode({
+              'adsupercal': ads,
+            }))
+        .then((value) {
+      loadExpedition();
+      notifyListeners();
+    });
+  }
+
+  void clearAdsSupercal() {
+    http
+        .put(Uri.parse('$baseUrl/adsupercal.json'),
+            body: jsonEncode({
+              'adsupercal': '',
+            }))
+        .then((value) {
+      loadExpedition();
+      notifyListeners();
+    });
+  }
+  
 }

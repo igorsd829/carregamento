@@ -1,7 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carregamento_conectado/components/add_user_bottom.dart';
+import 'package:carregamento_conectado/components/add_warnig_card_ads_url.dart';
 import 'package:carregamento_conectado/pages/queue_of_trucks.dart';
 import 'package:carregamento_conectado/pages/queue_of_trucks_loaded.dart';
 import 'package:carregamento_conectado/pages/queue_of_trucks_loading.dart';
+import 'package:carregamento_conectado/providers/ads_provider.dart';
 import 'package:carregamento_conectado/providers/user_plate_provider.dart';
 import 'package:carregamento_conectado/utils/app_routs.dart';
 import 'package:flutter/material.dart';
@@ -21,19 +24,27 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
   int indexBottomNavigatorBar = 0;
-  FirebaseAuth auth = FirebaseAuth.instance; 
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   bool logado = false;
   double elevatedListButon = 15;
   double elevatedListLoadingButon = 2;
   double elevatedListLoadedButon = 2;
   int indexWindow = 0;
-
+  String imageUrl = '';
   @override
   void initState() {
     super.initState();
     Provider.of<Users>(context, listen: false).recuperarDadosUsuarioLogado();
-    Provider.of<Users>(context, listen: false).showAlertToChauffeur(context);
+    logado = Provider.of<Users>(context, listen: false).logado;
+    Provider.of<ProviderAdsItem>(context, listen: false).getPromptImages();
+    Provider.of<ProviderAdsItem>(
+      context,
+      listen: false,
+    ).showAlertToChauffeur(context);
+
+    // Provider.of<Users>(context, listen: false).loadAdSupercal();
+    // showAlertToChauffeur(context, imageUrl);
   }
 
   double indexNavigatorBarOne = 0;
@@ -43,13 +54,13 @@ class _HomePageState extends State<HomePage> {
   var hourTime = DateTime.now();
   bool load = false;
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    var IsLogado = ModalRoute.of(context)!.settings.arguments as bool;
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   var IsLogado = ModalRoute.of(context)!.settings.arguments as bool;
 
-    logado = IsLogado;
-  }
+  //   logado = IsLogado;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +98,74 @@ class _HomePageState extends State<HomePage> {
                           const Text('RELATÓRIO'),
                         ],
                       ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                      //   child: SizedBox(
+                      //     width: 295,
+                      //     child: ElevatedButton(
+                      //       onPressed: () {
+                      //         showModalBottomSheet(
+                      //           backgroundColor: Colors.grey.shade300,
+                      //           isScrollControlled: true,
+                      //           context: context,
+                      //           builder: (context) {
+                      //             return Padding(
+                      //               padding: EdgeInsets.only(
+                      //                 bottom: MediaQuery.of(
+                      //                   context,
+                      //                 ).viewInsets.bottom,
+                      //               ),
+                      //               child: const SizedBox(
+                      //                 height: 400,
+                      //                 width: double.infinity,
+                      //                 child: SingleChildScrollView(
+                      //                   child: Padding(
+                      //                     padding: EdgeInsets.symmetric(
+                      //                       horizontal: 20,
+                      //                       vertical: 10,
+                      //                     ),
+                      //                     child: Column(
+                      //                       children: [
+                      //                         AddWarnigCardAds(),
+                      //                         // PromptItemWidget(),
+                      //                         SizedBox(height: 10),
+                      //                       ],
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ),
+                      //             );
+                      //           },
+                      //         );
+                      //       },
+                      //       style: ElevatedButton.styleFrom(
+                      //         foregroundColor: Colors.black54,
+                      //         shape: const RoundedRectangleBorder(),
+                      //         backgroundColor: Colors.grey.shade200,
+                      //       ),
+                      //       child: const Text(
+                      //         'ADICIONAR URL',
+                      //         style: TextStyle(fontSize: 12),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed(AppRoutes.add_ad);
+                            },
+                            icon: Icon(
+                              Icons.warning_amber_rounded,
+                              size: 35,
+                              color: Colors.grey.shade500,
+                            ),
+                          ),
+                          const Text('ADICIONAR AVISO'),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
                       Row(
                         children: [
                           IconButton(
@@ -125,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           IconButton(
                             onPressed: () {
-                               users.clearLists();
+                              users.clearLists();
                               auth.signOut();
                               Navigator.of(
                                 context,
