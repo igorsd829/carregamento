@@ -21,7 +21,6 @@ class _AddAdsState extends State<AddAds> {
   final formTitulo = GlobalKey<FormState>();
   final formPrompt = GlobalKey<FormState>();
   final Map<String, Object> formData = {};
-  // PromptImageType _tipo = PromptImageType.man;
   Uint8List? _arquivoImagemSelecionado;
   bool _isSaving = false;
 
@@ -44,6 +43,13 @@ class _AddAdsState extends State<AddAds> {
     });
 
     try {
+      final firestore = FirebaseFirestore.instance;
+
+      final snapshot = await firestore.collection('promptImages').get();
+      for (var doc in snapshot.docs) {
+        await firestore.collection('promptImages').doc(doc.id).delete();
+      }
+
       final Reference reference = storage.ref().child(
         'imagens/${DateTime.now().millisecondsSinceEpoch}.jpg',
       );
@@ -58,16 +64,16 @@ class _AddAdsState extends State<AddAds> {
       final String downloadUrl = await reference.getDownloadURL();
 
       AdsImageModel promptImage = AdsImageModel(
-        id: FirebaseFirestore.instance.collection('promptImages').doc().id,
+        id: firestore.collection('promptImages').doc().id,
         imageUrl: downloadUrl,
       );
 
-      await FirebaseFirestore.instance
+      await firestore
           .collection('promptImages')
           .doc(promptImage.id)
           .set(promptImage.toJson());
 
-      debugPrint('PromptImage salvo com sucesso!');
+      debugPrint('PromptImage antigo substituído e novo salvo com sucesso!');
 
       if (!mounted) return;
 
@@ -78,19 +84,23 @@ class _AddAdsState extends State<AddAds> {
 
       showDialog(
         context: context,
-        builder: (context) {
+        barrierDismissible: false,
+        builder: (dialogContext) {
           return AlertDialog(
             title: const Text('Sucesso!'),
             content: const Text('Arquivo salvo com sucesso!'),
             actions: [
               TextButton(
-                onPressed: () {
-                  _arquivoImagemSelecionado = null;
-                  Provider.of<ProviderAdsItem>(context).getPromptImages();
-                  Navigator.of(context).pop();
-                  // Navigator.of(
-                  //               context,
-                  //             ).pushNamed(AppRoutes.home);
+                onPressed: () async {
+                  Navigator.of(dialogContext).pop();
+
+                  await Provider.of<ProviderAdsItem>(
+                    context,
+                    listen: false,
+                  ).getPromptImages();
+
+                  if (!mounted) return;
+                  Navigator.of(context).pushReplacementNamed(AppRoutes.home);
                 },
                 child: const Text('OK'),
               ),
@@ -129,9 +139,7 @@ class _AddAdsState extends State<AddAds> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // Provider.of<ProviderAdsItem>(context, listen: false).getPromptImages();
   }
 
   @override
@@ -140,6 +148,7 @@ class _AddAdsState extends State<AddAds> {
     double alturaTela = MediaQuery.of(context).size.height;
     double larguraTela = MediaQuery.of(context).size.width;
     final provider = Provider.of<ProviderAdsItem>(context, listen: false);
+
     return Scaffold(
       backgroundColor: Colors.grey.shade400,
       appBar: AppBar(
@@ -152,11 +161,9 @@ class _AddAdsState extends State<AddAds> {
                 height: isPortraitPhoneSize ? 18 : 35,
                 child: Image.asset(
                   'assets/images/supercal_login.png',
-
                   fit: BoxFit.contain,
                 ),
               ),
-
               const Expanded(child: SizedBox()),
             ],
           ),
@@ -178,7 +185,7 @@ class _AddAdsState extends State<AddAds> {
                             ? SizedBox(
                                 width: larguraTela * 0.5,
                                 height: alturaTela * 0.4,
-                                child: Center(
+                                child: const Center(
                                   child: CircularProgressIndicator(),
                                 ),
                               )
@@ -196,7 +203,7 @@ class _AddAdsState extends State<AddAds> {
                         height: alturaTela * 0.4,
                         width: larguraTela * 0.5,
                         child: provider.listPromptsFirestore.isEmpty
-                            ? Center(
+                            ? const Center(
                                 child: Text(
                                   'Adicione a imagem de aviso aqui',
                                   textAlign: TextAlign.center,
@@ -213,16 +220,15 @@ class _AddAdsState extends State<AddAds> {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(),
                   onPressed: _selecionarImagem,
-                  child: Text('Selecionar imagem'),
+                  child: const Text('Selecionar imagem'),
                 ),
-
                 const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.list,
                         size: 40,
                         color: Colors.transparent,
@@ -234,7 +240,7 @@ class _AddAdsState extends State<AddAds> {
                       onPressed: () {
                         _salvarPromptImage();
                       },
-                      child: Text('Salvar imagem'),
+                      child: const Text('Salvar imagem'),
                     ),
                     const SizedBox(width: 24),
                     IconButton(
@@ -244,7 +250,7 @@ class _AddAdsState extends State<AddAds> {
                           _arquivoImagemSelecionado,
                         );
                       },
-                      icon: Icon(Icons.delete, size: 40),
+                      icon: const Icon(Icons.delete, size: 40),
                     ),
                   ],
                 ),
