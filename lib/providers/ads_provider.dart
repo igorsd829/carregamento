@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carregamento_conectado/models/ads_image_model.dart';
+import 'package:carregamento_conectado/utils/app_routs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,10 @@ class ProviderAdsItem with ChangeNotifier {
     }
   }
 
-  Future<void> excluirTodasAsImagens(BuildContext context, Uint8List? _arquivoImagemSelecionado) async {
+  Future<void> excluirTodasAsImagens(
+    BuildContext context,
+    Uint8List? _arquivoImagemSelecionado,
+  ) async {
     try {
       // 1. Busca todos os documentos da coleção
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
@@ -75,7 +79,6 @@ class ProviderAdsItem with ChangeNotifier {
         return;
       }
 
-      // 2. Apaga todas as imagens do Storage em PARALELO
       List<Future<void>> tarefasStorage = [];
       for (AdsImageModel imagem in promptImages) {
         if (imagem.imageUrl.isNotEmpty) {
@@ -89,7 +92,6 @@ class ProviderAdsItem with ChangeNotifier {
       }
       await Future.wait(tarefasStorage);
 
-      // 3. Apaga os registros do Firestore em LOTE (Batch)
       WriteBatch batch = FirebaseFirestore.instance.batch();
       for (AdsImageModel imagem in promptImages) {
         DocumentReference docRef = FirebaseFirestore.instance
@@ -99,15 +101,12 @@ class ProviderAdsItem with ChangeNotifier {
       }
       await batch.commit();
 
-      // 4. Reseta as variáveis da classe/controller
       listPromptsFirestore.clear();
-      // _arquivoImagemSelecionado = null;
       notifyListeners();
       adSupercal = '';
 
       debugPrint('Todas as imagens foram excluídas com sucesso!');
 
-      // 5. Exibe Dialog de SUCESSO
       if (!context.mounted) return;
 
       showDialog(
@@ -127,6 +126,7 @@ class ProviderAdsItem with ChangeNotifier {
                   adSupercal = '';
                   notifyListeners();
                   Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacementNamed(AppRoutes.home);
                 },
                 child: const Text('OK'),
               ),
